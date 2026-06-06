@@ -1,0 +1,1212 @@
+{
+  "Attack_Potency": {
+    "file": "Attack_Potency.json",
+    "chars": 22033,
+    "sections": 21
+  },
+  "Speed": {
+    "file": "Speed.json",
+    "chars": 17585,
+    "sections": 23
+  },
+  "Durability": {
+    "file": "Durability.json",
+    "chars": 12750,
+    "sections": 20
+  },
+  "Lifting_Strength": {
+    "file": "Lifting_Strength.json",
+    "chars": 8575,
+    "sections": 5
+  },
+  "Striking_Strength": {
+    "file": "Striking_Strength.json",
+    "chars": 4473,
+    "sections": 5
+  },
+  "Stamina": {
+    "file": "Stamina.json",
+    "chars": 5691,
+    "sections": 4
+  },
+  "Range": {
+    "file": "Range.json",
+    "chars": 9260,
+    "sections": 5
+  },
+  "Intelligence": {
+    "file": "Intelligence.json",
+    "chars": 13414,
+    "sections": 8
+  },
+  "Standard_Equipment": {
+    "file": "Standard_Equipment.json",
+    "chars": 1390,
+    "sections": 2
+  },
+  "Hax": {
+    "file": "Hax.json",
+    "chars": 9632,
+    "sections": 7
+  },
+  "Tiering_System_FAQ": {
+    "file": "Tiering_System_FAQ.json",
+    "chars": 57023,
+    "sections": 30
+  },
+  "Glossary": {
+    "file": "Glossary.json",
+    "chars": 33,
+    "sections": 0
+  },
+  "BFR": {
+    "file": "BFR.json",
+    "chars": 1158,
+    "sections": 4
+  },
+  "Blitz": {
+    "file": "Blitz.json",
+    "chars": 188,
+    "sections": 0
+  },
+  "Stomp": {
+    "file": "Stomp.json",
+    "chars": 26,
+    "sections": 0
+  },
+  "Speed_Blitz": {
+    "file": "Speed_Blitz.json",
+    "chars": 2368,
+    "sections": 2
+  },
+  "Absolute_Zero": {
+    "file": "Absolute_Zero.json",
+    "chars": 1449,
+    "sections": 3
+  },
+  "Absorption": {
+    "file": "Absorption.json",
+    "chars": 2178,
+    "sections": 4
+  },
+  "Abstract_Existence": {
+    "file": "Abstract_Existence.json",
+    "chars": 3240,
+    "sections": 5
+  },
+  "Acausality": {
+    "file": "Acausality.json",
+    "chars": 4133,
+    "sections": 3
+  },
+  "Accelerated_Development": {
+    "file": "Accelerated_Development.json",
+    "chars": 3682,
+    "sections": 6
+  },
+  "Acid_Manipulation": {
+    "file": "Acid_Manipulation.json",
+    "chars": 841,
+    "sections": 3
+  },
+  "Acrobatics": {
+    "file": "Acrobatics.json",
+    "chars": 2074,
+    "sections": 4
+  },
+  "Adaptation": {
+    "file": "Adaptation.json",
+    "chars": 977,
+    "sections": 3
+  },
+  "Additional_Limbs": {
+    "file": "Additional_Limbs.json",
+    "chars": 1919,
+    "sections": 5
+  },
+  "Adhesive_Manipulation": {
+    "file": "Adhesive_Manipulation.json",
+    "chars": 973,
+    "sections": 3
+  },
+  "Afterimage_Creation": {
+    "file": "Afterimage_Creation.json",
+    "chars": 1215,
+    "sections": 3
+  },
+  "Age_Manipulation": {
+    "file": "Age_Manipulation.json",
+    "chars": 885,
+    "sections": 3
+  },
+  "Air_Manipulation": {
+    "file": "Air_Manipulation.json",
+    "chars": 2645,
+    "sections": 5
+  },
+  "Alternate_Future_Display": {
+    "file": "Alternate_Future_Display.json",
+    "chars": 677,
+    "sections": 3
+  },
+  "Animal_Manipulation": {
+    "file": "Animal_Manipulation.json",
+    "chars": 2413,
+    "sections": 4
+  },
+  "Antimatter_Manipulation": {
+    "file": "Antimatter_Manipulation.json",
+    "chars": 723,
+    "sections": 3
+  },
+  "Astral_Projection": {
+    "file": "Astral_Projection.json",
+    "chars": 1048,
+    "sections": 4
+  },
+  "Attack_Reflection": {
+    "file": "Attack_Reflection.json",
+    "chars": 1673,
+    "sections": 3
+  },
+  "Aura": {
+    "file": "Aura.json",
+    "chars": 2088,
+    "sections": 4
+  },
+  "Automatic_Translation": {
+    "file": "Automatic_Translation.json",
+    "chars": 1180,
+    "sections": 3
+  },
+  "Avatar_Creation": {
+    "file": "Avatar_Creation.json",
+    "chars": 784,
+    "sections": 3
+  },
+  "Berserk_Mode": {
+    "file": "Berserk_Mode.json",
+    "chars": 1624,
+    "sections": 5
+  },
+  "Beyond-Dimensional_Existence": {
+    "file": "Beyond-Dimensional_Existence.json",
+    "chars": 6677,
+    "sections": 5
+  },
+  "Biological_Manipulation": {
+    "file": "Biological_Manipulation.json",
+    "chars": 2288,
+    "sections": 4
+  },
+  "Black_Hole_Creation": {
+    "file": "Black_Hole_Creation.json",
+    "chars": 1659,
+    "sections": 4
+  },
+  "Blessed": {
+    "file": "Blessed.json",
+    "chars": 2428,
+    "sections": 4
+  },
+  "Blood_Manipulation": {
+    "file": "Blood_Manipulation.json",
+    "chars": 1250,
+    "sections": 4
+  },
+  "Bodily_Weaponry": {
+    "file": "Bodily_Weaponry.json",
+    "chars": 3460,
+    "sections": 6
+  },
+  "Body_Control": {
+    "file": "Body_Control.json",
+    "chars": 2271,
+    "sections": 4
+  },
+  "Body_Puppetry": {
+    "file": "Body_Puppetry.json",
+    "chars": 970,
+    "sections": 3
+  },
+  "Bone_Manipulation": {
+    "file": "Bone_Manipulation.json",
+    "chars": 719,
+    "sections": 3
+  },
+  "Breaking_the_Fourth_Wall": {
+    "file": "Breaking_the_Fourth_Wall.json",
+    "chars": 1708,
+    "sections": 3
+  },
+  "Breath_Attack": {
+    "file": "Breath_Attack.json",
+    "chars": 784,
+    "sections": 4
+  },
+  "Broadway_Force": {
+    "file": "Broadway_Force.json",
+    "chars": 1366,
+    "sections": 3
+  },
+  "Camouflage": {
+    "file": "Camouflage.json",
+    "chars": 958,
+    "sections": 4
+  },
+  "Causality_Manipulation": {
+    "file": "Causality_Manipulation.json",
+    "chars": 1798,
+    "sections": 5
+  },
+  "Chaos_Manipulation": {
+    "file": "Chaos_Manipulation.json",
+    "chars": 6581,
+    "sections": 6
+  },
+  "Chi_Manipulation": {
+    "file": "Chi_Manipulation.json",
+    "chars": 3525,
+    "sections": 5
+  },
+  "Clairvoyance": {
+    "file": "Clairvoyance.json",
+    "chars": 1797,
+    "sections": 5
+  },
+  "Cloth_Manipulation": {
+    "file": "Cloth_Manipulation.json",
+    "chars": 5621,
+    "sections": 5
+  },
+  "Conceptual_Manipulation": {
+    "file": "Conceptual_Manipulation.json",
+    "chars": 7152,
+    "sections": 6
+  },
+  "Construction": {
+    "file": "Construction.json",
+    "chars": 3429,
+    "sections": 5
+  },
+  "Corrosion_Inducement": {
+    "file": "Corrosion_Inducement.json",
+    "chars": 957,
+    "sections": 3
+  },
+  "Corruption": {
+    "file": "Corruption.json",
+    "chars": 3009,
+    "sections": 5
+  },
+  "Cosmic_Awareness": {
+    "file": "Cosmic_Awareness.json",
+    "chars": 1229,
+    "sections": 3
+  },
+  "Creation": {
+    "file": "Creation.json",
+    "chars": 2014,
+    "sections": 7
+  },
+  "Crystal_Manipulation": {
+    "file": "Crystal_Manipulation.json",
+    "chars": 1906,
+    "sections": 6
+  },
+  "Curse_Manipulation": {
+    "file": "Curse_Manipulation.json",
+    "chars": 1510,
+    "sections": 4
+  },
+  "Cyborgization": {
+    "file": "Cyborgization.json",
+    "chars": 2124,
+    "sections": 4
+  },
+  "Damage_Boost": {
+    "file": "Damage_Boost.json",
+    "chars": 1118,
+    "sections": 5
+  },
+  "Damage_Reduction": {
+    "file": "Damage_Reduction.json",
+    "chars": 1051,
+    "sections": 3
+  },
+  "Damage_Transferal": {
+    "file": "Damage_Transferal.json",
+    "chars": 1084,
+    "sections": 3
+  },
+  "Danmaku": {
+    "file": "Danmaku.json",
+    "chars": 6644,
+    "sections": 8
+  },
+  "Darkness_Manipulation": {
+    "file": "Darkness_Manipulation.json",
+    "chars": 1894,
+    "sections": 5
+  },
+  "Data_Manipulation": {
+    "file": "Data_Manipulation.json",
+    "chars": 978,
+    "sections": 3
+  },
+  "Death_Manipulation": {
+    "file": "Death_Manipulation.json",
+    "chars": 1286,
+    "sections": 3
+  },
+  "Deconstruction": {
+    "file": "Deconstruction.json",
+    "chars": 1562,
+    "sections": 3
+  },
+  "Density_Manipulation": {
+    "file": "Density_Manipulation.json",
+    "chars": 981,
+    "sections": 3
+  },
+  "Dimensional_Manipulation": {
+    "file": "Dimensional_Manipulation.json",
+    "chars": 1438,
+    "sections": 4
+  },
+  "Dimensional_Storage": {
+    "file": "Dimensional_Storage.json",
+    "chars": 1076,
+    "sections": 5
+  },
+  "Dimensional_Travel": {
+    "file": "Dimensional_Travel.json",
+    "chars": 922,
+    "sections": 3
+  },
+  "Disease_Manipulation": {
+    "file": "Disease_Manipulation.json",
+    "chars": 4350,
+    "sections": 5
+  },
+  "Dream_Manipulation": {
+    "file": "Dream_Manipulation.json",
+    "chars": 1173,
+    "sections": 3
+  },
+  "Duplication": {
+    "file": "Duplication.json",
+    "chars": 2243,
+    "sections": 5
+  },
+  "Durability_Negation": {
+    "file": "Durability_Negation.json",
+    "chars": 4229,
+    "sections": 5
+  },
+  "Earth_Manipulation": {
+    "file": "Earth_Manipulation.json",
+    "chars": 1967,
+    "sections": 5
+  },
+  "Ectoplasm_Manipulation": {
+    "file": "Ectoplasm_Manipulation.json",
+    "chars": 1599,
+    "sections": 5
+  },
+  "Elasticity": {
+    "file": "Elasticity.json",
+    "chars": 998,
+    "sections": 3
+  },
+  "Electricity_Manipulation": {
+    "file": "Electricity_Manipulation.json",
+    "chars": 1650,
+    "sections": 4
+  },
+  "Elemental_Manipulation": {
+    "file": "Elemental_Manipulation.json",
+    "chars": 1126,
+    "sections": 3
+  },
+  "Empathic_Manipulation": {
+    "file": "Empathic_Manipulation.json",
+    "chars": 1429,
+    "sections": 6
+  },
+  "Empowerment": {
+    "file": "Empowerment.json",
+    "chars": 1523,
+    "sections": 4
+  },
+  "Energy_Manipulation": {
+    "file": "Energy_Manipulation.json",
+    "chars": 1872,
+    "sections": 5
+  },
+  "Energy_Projection": {
+    "file": "Energy_Projection.json",
+    "chars": 824,
+    "sections": 3
+  },
+  "Enhanced_Senses": {
+    "file": "Enhanced_Senses.json",
+    "chars": 3750,
+    "sections": 5
+  },
+  "Existence_Erasure": {
+    "file": "Existence_Erasure.json",
+    "chars": 2428,
+    "sections": 3
+  },
+  "Explosion_Manipulation": {
+    "file": "Explosion_Manipulation.json",
+    "chars": 895,
+    "sections": 3
+  },
+  "Extrasensory_Perception": {
+    "file": "Extrasensory_Perception.json",
+    "chars": 1562,
+    "sections": 5
+  },
+  "Fate_Manipulation": {
+    "file": "Fate_Manipulation.json",
+    "chars": 986,
+    "sections": 5
+  },
+  "Fear_Manipulation": {
+    "file": "Fear_Manipulation.json",
+    "chars": 3456,
+    "sections": 6
+  },
+  "Fire_Manipulation": {
+    "file": "Fire_Manipulation.json",
+    "chars": 912,
+    "sections": 3
+  },
+  "Fissionism": {
+    "file": "Fissionism.json",
+    "chars": 1493,
+    "sections": 4
+  },
+  "Flight": {
+    "file": "Flight.json",
+    "chars": 3468,
+    "sections": 4
+  },
+  "Forcefield_Creation": {
+    "file": "Forcefield_Creation.json",
+    "chars": 2615,
+    "sections": 4
+  },
+  "Fragrance_Manipulation": {
+    "file": "Fragrance_Manipulation.json",
+    "chars": 1061,
+    "sections": 3
+  },
+  "Free_Movement": {
+    "file": "Free_Movement.json",
+    "chars": 1273,
+    "sections": 4
+  },
+  "Fungus_Manipulation": {
+    "file": "Fungus_Manipulation.json",
+    "chars": 1524,
+    "sections": 5
+  },
+  "Fusionism": {
+    "file": "Fusionism.json",
+    "chars": 1274,
+    "sections": 6
+  },
+  "Genius_Intelligence": {
+    "file": "Genius_Intelligence.json",
+    "chars": 2028,
+    "sections": 3
+  },
+  "Gravity_Manipulation": {
+    "file": "Gravity_Manipulation.json",
+    "chars": 1323,
+    "sections": 3
+  },
+  "Hacking": {
+    "file": "Hacking.json",
+    "chars": 1227,
+    "sections": 4
+  },
+  "Hair_Manipulation": {
+    "file": "Hair_Manipulation.json",
+    "chars": 808,
+    "sections": 3
+  },
+  "Healing": {
+    "file": "Healing.json",
+    "chars": 2122,
+    "sections": 4
+  },
+  "Higher-Dimensional_Existence": {
+    "file": "Higher-Dimensional_Existence.json",
+    "chars": 8118,
+    "sections": 7
+  },
+  "Hive_Mind": {
+    "file": "Hive_Mind.json",
+    "chars": 2053,
+    "sections": 6
+  },
+  "Holy_Manipulation": {
+    "file": "Holy_Manipulation.json",
+    "chars": 2454,
+    "sections": 4
+  },
+  "Homing_Attack": {
+    "file": "Homing_Attack.json",
+    "chars": 1601,
+    "sections": 4
+  },
+  "Ice_Manipulation": {
+    "file": "Ice_Manipulation.json",
+    "chars": 2864,
+    "sections": 5
+  },
+  "Illusion_Creation": {
+    "file": "Illusion_Creation.json",
+    "chars": 1152,
+    "sections": 3
+  },
+  "Immersion": {
+    "file": "Immersion.json",
+    "chars": 1164,
+    "sections": 3
+  },
+  "Immortality": {
+    "file": "Immortality.json",
+    "chars": 5479,
+    "sections": 3
+  },
+  "Incorporeality": {
+    "file": "Incorporeality.json",
+    "chars": 1677,
+    "sections": 4
+  },
+  "Information_Analysis": {
+    "file": "Information_Analysis.json",
+    "chars": 1287,
+    "sections": 3
+  },
+  "Information_Manipulation": {
+    "file": "Information_Manipulation.json",
+    "chars": 2395,
+    "sections": 4
+  },
+  "Inorganic_Physiology": {
+    "file": "Inorganic_Physiology.json",
+    "chars": 2442,
+    "sections": 5
+  },
+  "Instinctive_Action": {
+    "file": "Instinctive_Action.json",
+    "chars": 4261,
+    "sections": 6
+  },
+  "Intangibility": {
+    "file": "Intangibility.json",
+    "chars": 10393,
+    "sections": 5
+  },
+  "Invisibility": {
+    "file": "Invisibility.json",
+    "chars": 1115,
+    "sections": 3
+  },
+  "Invulnerability": {
+    "file": "Invulnerability.json",
+    "chars": 1687,
+    "sections": 3
+  },
+  "Large_Size": {
+    "file": "Large_Size.json",
+    "chars": 4393,
+    "sections": 4
+  },
+  "Law_Manipulation": {
+    "file": "Law_Manipulation.json",
+    "chars": 2442,
+    "sections": 5
+  },
+  "Life_Manipulation": {
+    "file": "Life_Manipulation.json",
+    "chars": 2035,
+    "sections": 5
+  },
+  "Light_Manipulation": {
+    "file": "Light_Manipulation.json",
+    "chars": 2111,
+    "sections": 5
+  },
+  "Logic_Manipulation": {
+    "file": "Logic_Manipulation.json",
+    "chars": 5876,
+    "sections": 6
+  },
+  "Longevity": {
+    "file": "Longevity.json",
+    "chars": 1065,
+    "sections": 3
+  },
+  "Madness_Manipulation": {
+    "file": "Madness_Manipulation.json",
+    "chars": 2396,
+    "sections": 3
+  },
+  "Magic": {
+    "file": "Magic.json",
+    "chars": 3641,
+    "sections": 4
+  },
+  "Magma_Manipulation": {
+    "file": "Magma_Manipulation.json",
+    "chars": 2027,
+    "sections": 5
+  },
+  "Magnetism_Manipulation": {
+    "file": "Magnetism_Manipulation.json",
+    "chars": 890,
+    "sections": 3
+  },
+  "Martial_Arts": {
+    "file": "Martial_Arts.json",
+    "chars": 1729,
+    "sections": 4
+  },
+  "Mathematics_Manipulation": {
+    "file": "Mathematics_Manipulation.json",
+    "chars": 3399,
+    "sections": 6
+  },
+  "Matter_Manipulation": {
+    "file": "Matter_Manipulation.json",
+    "chars": 3807,
+    "sections": 8
+  },
+  "Memory_Manipulation": {
+    "file": "Memory_Manipulation.json",
+    "chars": 1504,
+    "sections": 4
+  },
+  "Metal_Manipulation": {
+    "file": "Metal_Manipulation.json",
+    "chars": 2300,
+    "sections": 5
+  },
+  "Mind_Manipulation": {
+    "file": "Mind_Manipulation.json",
+    "chars": 1992,
+    "sections": 3
+  },
+  "Morality_Manipulation": {
+    "file": "Morality_Manipulation.json",
+    "chars": 1910,
+    "sections": 5
+  },
+  "Multilocation": {
+    "file": "Multilocation.json",
+    "chars": 6080,
+    "sections": 5
+  },
+  "Multiple_Selves": {
+    "file": "Multiple_Selves.json",
+    "chars": 3713,
+    "sections": 5
+  },
+  "Nanotechnology": {
+    "file": "Nanotechnology.json",
+    "chars": 1183,
+    "sections": 3
+  },
+  "Necromancy": {
+    "file": "Necromancy.json",
+    "chars": 2067,
+    "sections": 4
+  },
+  "Nigh-Omniscience": {
+    "file": "Nigh-Omniscience.json",
+    "chars": 1174,
+    "sections": 4
+  },
+  "Non-Physical_Interaction": {
+    "file": "Non-Physical_Interaction.json",
+    "chars": 2489,
+    "sections": 3
+  },
+  "Non-Standard_Breathing": {
+    "file": "Non-Standard_Breathing.json",
+    "chars": 2577,
+    "sections": 6
+  },
+  "Nonexistent_Physiology": {
+    "file": "Nonexistent_Physiology.json",
+    "chars": 6549,
+    "sections": 8
+  },
+  "Omnipotence": {
+    "file": "Omnipotence.json",
+    "chars": 40970,
+    "sections": 14
+  },
+  "Omnipresence": {
+    "file": "Omnipresence.json",
+    "chars": 1208,
+    "sections": 5
+  },
+  "Omniscience": {
+    "file": "Omniscience.json",
+    "chars": 1154,
+    "sections": 4
+  },
+  "Organic_Manipulation": {
+    "file": "Organic_Manipulation.json",
+    "chars": 793,
+    "sections": 3
+  },
+  "Pain_Manipulation": {
+    "file": "Pain_Manipulation.json",
+    "chars": 1156,
+    "sections": 3
+  },
+  "Paper_Manipulation": {
+    "file": "Paper_Manipulation.json",
+    "chars": 573,
+    "sections": 3
+  },
+  "Paraconsistent_Physiology": {
+    "file": "Paraconsistent_Physiology.json",
+    "chars": 5396,
+    "sections": 3
+  },
+  "Paralysis_Inducement": {
+    "file": "Paralysis_Inducement.json",
+    "chars": 1171,
+    "sections": 3
+  },
+  "Peak_Human_Physical_Characteristics": {
+    "file": "Peak_Human_Physical_Characteristics.json",
+    "chars": 5068,
+    "sections": 11
+  },
+  "Perception_Manipulation": {
+    "file": "Perception_Manipulation.json",
+    "chars": 2567,
+    "sections": 5
+  },
+  "Petrification": {
+    "file": "Petrification.json",
+    "chars": 823,
+    "sections": 3
+  },
+  "Photographic_Memory": {
+    "file": "Photographic_Memory.json",
+    "chars": 793,
+    "sections": 3
+  },
+  "Physics_Manipulation": {
+    "file": "Physics_Manipulation.json",
+    "chars": 1799,
+    "sections": 4
+  },
+  "Plant_Manipulation": {
+    "file": "Plant_Manipulation.json",
+    "chars": 2469,
+    "sections": 5
+  },
+  "Plasma_Manipulation": {
+    "file": "Plasma_Manipulation.json",
+    "chars": 991,
+    "sections": 3
+  },
+  "Platform_Creation": {
+    "file": "Platform_Creation.json",
+    "chars": 1082,
+    "sections": 5
+  },
+  "Plot_Manipulation": {
+    "file": "Plot_Manipulation.json",
+    "chars": 2615,
+    "sections": 5
+  },
+  "Pocket_Reality_Manipulation": {
+    "file": "Pocket_Reality_Manipulation.json",
+    "chars": 1734,
+    "sections": 5
+  },
+  "Poison_Manipulation": {
+    "file": "Poison_Manipulation.json",
+    "chars": 1188,
+    "sections": 3
+  },
+  "Portal_Creation": {
+    "file": "Portal_Creation.json",
+    "chars": 1017,
+    "sections": 3
+  },
+  "Possession": {
+    "file": "Possession.json",
+    "chars": 1286,
+    "sections": 4
+  },
+  "Power_Absorption": {
+    "file": "Power_Absorption.json",
+    "chars": 1192,
+    "sections": 3
+  },
+  "Power_Bestowal": {
+    "file": "Power_Bestowal.json",
+    "chars": 906,
+    "sections": 3
+  },
+  "Power_Mimicry": {
+    "file": "Power_Mimicry.json",
+    "chars": 1644,
+    "sections": 3
+  },
+  "Power_Modification": {
+    "file": "Power_Modification.json",
+    "chars": 917,
+    "sections": 3
+  },
+  "Power_Nullification": {
+    "file": "Power_Nullification.json",
+    "chars": 3722,
+    "sections": 6
+  },
+  "Precognition": {
+    "file": "Precognition.json",
+    "chars": 3980,
+    "sections": 3
+  },
+  "Preparation": {
+    "file": "Preparation.json",
+    "chars": 1371,
+    "sections": 4
+  },
+  "Pressure_Points": {
+    "file": "Pressure_Points.json",
+    "chars": 1072,
+    "sections": 4
+  },
+  "Probability_Manipulation": {
+    "file": "Probability_Manipulation.json",
+    "chars": 1170,
+    "sections": 3
+  },
+  "Psychometry": {
+    "file": "Psychometry.json",
+    "chars": 1262,
+    "sections": 3
+  },
+  "Purification": {
+    "file": "Purification.json",
+    "chars": 2237,
+    "sections": 4
+  },
+  "Radiation_Manipulation": {
+    "file": "Radiation_Manipulation.json",
+    "chars": 1658,
+    "sections": 4
+  },
+  "Rage_Power": {
+    "file": "Rage_Power.json",
+    "chars": 1492,
+    "sections": 4
+  },
+  "Reactive_Evolution": {
+    "file": "Reactive_Evolution.json",
+    "chars": 2062,
+    "sections": 3
+  },
+  "Reality_Warping": {
+    "file": "Reality_Warping.json",
+    "chars": 2653,
+    "sections": 5
+  },
+  "Regeneration": {
+    "file": "Regeneration.json",
+    "chars": 8118,
+    "sections": 3
+  },
+  "Resistance": {
+    "file": "Resistance.json",
+    "chars": 17371,
+    "sections": 12
+  },
+  "Restoration": {
+    "file": "Restoration.json",
+    "chars": 4321,
+    "sections": 6
+  },
+  "Resurrection": {
+    "file": "Resurrection.json",
+    "chars": 1704,
+    "sections": 3
+  },
+  "Retrocognition": {
+    "file": "Retrocognition.json",
+    "chars": 1131,
+    "sections": 3
+  },
+  "Sand_Manipulation": {
+    "file": "Sand_Manipulation.json",
+    "chars": 2233,
+    "sections": 5
+  },
+  "Sealing": {
+    "file": "Sealing.json",
+    "chars": 1534,
+    "sections": 3
+  },
+  "Self-Destruction": {
+    "file": "Self-Destruction.json",
+    "chars": 977,
+    "sections": 3
+  },
+  "Self-Sustenance": {
+    "file": "Self-Sustenance.json",
+    "chars": 1984,
+    "sections": 4
+  },
+  "Shapeshifting": {
+    "file": "Shapeshifting.json",
+    "chars": 2141,
+    "sections": 4
+  },
+  "Size_Manipulation": {
+    "file": "Size_Manipulation.json",
+    "chars": 2146,
+    "sections": 5
+  },
+  "Sleep_Manipulation": {
+    "file": "Sleep_Manipulation.json",
+    "chars": 2764,
+    "sections": 5
+  },
+  "Sleight_of_Hand": {
+    "file": "Sleight_of_Hand.json",
+    "chars": 5042,
+    "sections": 8
+  },
+  "Small_Size": {
+    "file": "Small_Size.json",
+    "chars": 3924,
+    "sections": 3
+  },
+  "Smoke_Manipulation": {
+    "file": "Smoke_Manipulation.json",
+    "chars": 778,
+    "sections": 3
+  },
+  "Social_Influencing": {
+    "file": "Social_Influencing.json",
+    "chars": 5686,
+    "sections": 3
+  },
+  "Soul_Manipulation": {
+    "file": "Soul_Manipulation.json",
+    "chars": 1939,
+    "sections": 3
+  },
+  "Sound_Manipulation": {
+    "file": "Sound_Manipulation.json",
+    "chars": 1641,
+    "sections": 5
+  },
+  "Space_Survival": {
+    "file": "Space_Survival.json",
+    "chars": 1605,
+    "sections": 5
+  },
+  "Spatial_Manipulation": {
+    "file": "Spatial_Manipulation.json",
+    "chars": 1442,
+    "sections": 3
+  },
+  "Statistics_Amplification": {
+    "file": "Statistics_Amplification.json",
+    "chars": 1959,
+    "sections": 4
+  },
+  "Statistics_Reduction": {
+    "file": "Statistics_Reduction.json",
+    "chars": 1400,
+    "sections": 2
+  },
+  "Status_Effect_Inducement": {
+    "file": "Status_Effect_Inducement.json",
+    "chars": 3061,
+    "sections": 4
+  },
+  "Stealth_Mastery": {
+    "file": "Stealth_Mastery.json",
+    "chars": 2348,
+    "sections": 4
+  },
+  "Subjective_Reality": {
+    "file": "Subjective_Reality.json",
+    "chars": 1915,
+    "sections": 5
+  },
+  "Summoning": {
+    "file": "Summoning.json",
+    "chars": 1949,
+    "sections": 4
+  },
+  "Superhuman_Physical_Characteristics": {
+    "file": "Superhuman_Physical_Characteristics.json",
+    "chars": 4675,
+    "sections": 5
+  },
+  "Superhuman_Precision": {
+    "file": "Superhuman_Precision.json",
+    "chars": 1629,
+    "sections": 3
+  },
+  "Supernatural_Luck": {
+    "file": "Supernatural_Luck.json",
+    "chars": 1361,
+    "sections": 3
+  },
+  "Supernatural_Willpower": {
+    "file": "Supernatural_Willpower.json",
+    "chars": 1891,
+    "sections": 3
+  },
+  "Surface_Scaling": {
+    "file": "Surface_Scaling.json",
+    "chars": 1420,
+    "sections": 3
+  },
+  "Technology_Manipulation": {
+    "file": "Technology_Manipulation.json",
+    "chars": 1562,
+    "sections": 3
+  },
+  "Telekinesis": {
+    "file": "Telekinesis.json",
+    "chars": 1060,
+    "sections": 4
+  },
+  "Telepathy": {
+    "file": "Telepathy.json",
+    "chars": 830,
+    "sections": 3
+  },
+  "Teleportation": {
+    "file": "Teleportation.json",
+    "chars": 4304,
+    "sections": 6
+  },
+  "Temperature_Manipulation": {
+    "file": "Temperature_Manipulation.json",
+    "chars": 793,
+    "sections": 3
+  },
+  "Text_Manipulation": {
+    "file": "Text_Manipulation.json",
+    "chars": 1910,
+    "sections": 4
+  },
+  "Thread_Manipulation": {
+    "file": "Thread_Manipulation.json",
+    "chars": 1479,
+    "sections": 5
+  },
+  "Time_Manipulation": {
+    "file": "Time_Manipulation.json",
+    "chars": 3447,
+    "sections": 5
+  },
+  "Time_Travel": {
+    "file": "Time_Travel.json",
+    "chars": 2426,
+    "sections": 4
+  },
+  "Toon_Force": {
+    "file": "Toon_Force.json",
+    "chars": 1884,
+    "sections": 6
+  },
+  "Transformation": {
+    "file": "Transformation.json",
+    "chars": 1362,
+    "sections": 3
+  },
+  "Transmutation": {
+    "file": "Transmutation.json",
+    "chars": 803,
+    "sections": 3
+  },
+  "Underground_Mobility": {
+    "file": "Underground_Mobility.json",
+    "chars": 2581,
+    "sections": 6
+  },
+  "Unholy_Manipulation": {
+    "file": "Unholy_Manipulation.json",
+    "chars": 2139,
+    "sections": 5
+  },
+  "Vector_Manipulation": {
+    "file": "Vector_Manipulation.json",
+    "chars": 1094,
+    "sections": 3
+  },
+  "Vehicular_Mastery": {
+    "file": "Vehicular_Mastery.json",
+    "chars": 1113,
+    "sections": 4
+  },
+  "Vibration_Manipulation": {
+    "file": "Vibration_Manipulation.json",
+    "chars": 1092,
+    "sections": 3
+  },
+  "Void_Manipulation": {
+    "file": "Void_Manipulation.json",
+    "chars": 2963,
+    "sections": 5
+  },
+  "Water_Manipulation": {
+    "file": "Water_Manipulation.json",
+    "chars": 2031,
+    "sections": 5
+  },
+  "Weapon_Control": {
+    "file": "Weapon_Control.json",
+    "chars": 1821,
+    "sections": 5
+  },
+  "Weapon_Creation": {
+    "file": "Weapon_Creation.json",
+    "chars": 991,
+    "sections": 3
+  },
+  "Weapon_Mastery": {
+    "file": "Weapon_Mastery.json",
+    "chars": 2246,
+    "sections": 5
+  },
+  "Weather_Manipulation": {
+    "file": "Weather_Manipulation.json",
+    "chars": 2723,
+    "sections": 5
+  },
+  "Zero-Dimensionality": {
+    "file": "Zero-Dimensionality.json",
+    "chars": 1602,
+    "sections": 5
+  },
+  "Category:Verse-specific_Powers_and_Abilities": {
+    "file": "Category_Verse-specific_Powers_and_Abilities.json",
+    "chars": 343,
+    "sections": 0
+  }
+}

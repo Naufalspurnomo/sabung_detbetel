@@ -1,0 +1,306 @@
+{{Statistics Explanation Pages}}
+
+[[File:Tiering System Render.png|right|350px]]
+
+==Introduction==
+The following is a comprehensive overview of the hierarchical system the {{SITENAME}} utilizes to properly categorize and index fictional characters, entities, and objects based on the scale of their feats and the varying scopes that they can affect or create/destroy. Though '''Destructive Capacity''' and '''Area of Effect''' are some primary ways to qualify for a particular tier, they are not the only ones. For instance, harming a character with a certain level of [[Durability]] also allows another character to qualify for the corresponding tier.
+
+Furthermore, characters from a higher tier are not necessarily invincible to entities of lower tiers, as certain powers and abilities can potentially bypass the difference in strength entirely, allowing the latter to contend with or overpower such characters. [[Hax|See this page for more information]].
+
+Moreover, many tiers have a massive difference between their baselines and caps. Hence, being far more powerful than a character in one tier does not necessarily qualify one for a higher rating.
+
+For general questions regarding the Tiering System's upper levels, it is advisable to read [[Tiering System FAQ|this page]] as well.
+
+==The Scale==
+===[[:Category:Tier 11|Tier 11]]: Infinitesimal===
+No joule value available. This tier pertains to characters or objects that can create/destroy or affect the whole structure of a lower-dimensional universe, or lower layers/levels of reality. Please note that existing as a drawing or being made of data/information is not to be ranked at this tier, as such beings are still 3-dimensional, but on an incredibly small scale.
+
+====[[:Category:Tier 11-C|11-C]]: Low Hypoverse level====
+Characters or objects that demonstrate power equivalent to destroying/creating infinitely inferior 0-D constructs of any size. This tier also includes characters who are vastly below this level, and all characters beneath this tier’s requirements in any significant way will still be at this tier (e.g. Characters who are "qualitatively inferior" to conventional reality)
+
+====[[:Category:Tier 11-B|11-B]]: Hypoverse level====
+Characters or objects that demonstrate power equivalent to destroying/creating infinitely inferior 1-D constructs of any size.
+
+====[[:Category:Tier 11-A|11-A]]: High Hypoverse level====
+Characters or objects that demonstrate power equivalent to destroying/creating infinitely inferior 2-D constructs of any size.
+
+===[[:Category:Tier 10|Tier 10]]: Human===
+
+====[[:Category:Tier 10-C|10-C]]: Below Average Human level====
+Characters or objects capable of exerting force comparable to humans who are below the average norm in terms of strength, such as small children or infirm people, as well as smaller animals such as cats and dogs.
+
+====[[:Category:Tier 10-B|10-B]]: Human level====
+Characters or objects capable of exerting force comparable to that of regular humans, such as teenagers or unathletic adults.
+
+====[[:Category:Tier 10-A|10-A]]: Athlete level====
+Characters or objects capable of exerting force comparable to that of more athletic humans, such as trained fighters or generally physically fit individuals.
+
+===[[:Category:Tier 9|Tier 9]]: Superhuman===
+
+====[[:Category:Tier 9-C|9-C]]: Street level====
+Characters or objects that stand at the threshold of human strength and capabilities, represented by Olympic level athletes or rigorously trained martial artists, as well as larger animals.
+
+Despite being named "Street level", this tier has nothing to do with actually affecting an entire street, with the name being more of a reference to street fighters as portrayed in martial arts movies and the like.
+
+====[[:Category:Tier 9-B|9-B]]: Wall level====
+Characters or objects that can destroy or significantly damage extremely resistant materials such as stone, metal or steel, as well as similarly resistant parts of constructions such as structural boulders and walls.
+
+====[[:Category:Tier 9-A|9-A]]: Small Building level====
+Characters or objects capable of destroying rooms or entire small constructions such as houses or more modest buildings.
+
+===[[:Category:Tier 8|Tier 8]]: Urban===
+
+====[[:Category:Tier 8-C|8-C]]: Building level====
+Characters or objects that can destroy medium-sized buildings and constructions, such as large factories or large complexes such as supermarkets.
+
+====[[:Category:Tier High 8-C|High 8-C]]: Large Building level====
+Characters or objects that can destroy large buildings such as skyscrapers.
+
+====[[:Category:Tier 8-B|8-B]]: City Block level====
+Characters or objects that can destroy urban city blocks or equivalent areas of space.
+
+====[[:Category:Tier 8-A|8-A]]: Multi-City Block level====
+Characters or objects that can destroy multiple urban city blocks or equivalent areas of space.
+
+===[[:Category:Tier 7|Tier 7]]: Nuclear===
+
+====[[:Category:Tier Low 7-C|Low 7-C]]: Small Town level====
+Characters or objects that can destroy a small town or settlement.
+
+====[[:Category:Tier 7-C|7-C]]: Town level====
+Characters or objects that can destroy a town.
+
+====[[:Category:Tier High 7-C|High 7-C]]: Large Town level====
+Characters or objects that can destroy a large town.
+
+====[[:Category:Tier Low 7-B|Low 7-B]]: Small City level====
+Characters or objects that can destroy a small city.
+
+====[[:Category:Tier 7-B|7-B]]: City level====
+Characters or objects that can destroy a city.
+
+====[[:Category:Tier 7-A|7-A]]: Mountain level====
+Characters or objects that can destroy a [[Mountain and Island Level Requirements|mountain]].
+
+====[[:Category:Tier High 7-A|High 7-A]]: Large Mountain level====
+Characters or objects that can destroy a large mountain.
+
+===[[:Category:Tier 6|Tier 6]]: Tectonic===
+
+====[[:Category:Tier 6-C|6-C]]: Island level====
+Characters or objects that can destroy an [[Mountain and Island Level Requirements|island]].
+
+====[[:Category:Tier High 6-C|High 6-C]]: Large Island level====
+Characters or objects that can destroy a large island.
+
+====[[:Category:Tier Low 6-B|Low 6-B]]: Small Country level====
+Characters or objects that can destroy a small country.
+
+====[[:Category:Tier 6-B|6-B]]: Country level====
+Characters or objects that can destroy a country.
+
+====[[:Category:Tier High 6-B|High 6-B]]: Large Country level====
+Characters or objects that can destroy a large country.
+
+====[[:Category:Tier 6-A|6-A]]: Continent level====
+Characters or objects that can destroy a continent.
+
+====[[:Category:Tier High 6-A|High 6-A]]: Multi-Continent level====
+Characters or objects that can destroy multiple continents.
+
+===[[:Category:Tier 5|Tier 5]]: Substellar===
+
+====[[:Category:Tier 5-C|5-C]]: Moon level====
+Characters or objects that can destroy a moon, or an astronomical object of similar proportions.
+
+====[[:Category:Tier Low 5-B|Low 5-B]]: Small Planet level====
+Characters or objects that can destroy a small planet.
+
+====[[:Category:Tier 5-B|5-B]]: Planet level====
+Characters or objects that can create/destroy a planet.
+
+====[[:Category:Tier 5-A|5-A]]: Large Planet level====
+Characters or objects that can create/destroy large ice giants such as Uranus and Neptune.
+
+====[[:Category:Tier High 5-A|High 5-A]]: Brown Dwarf level====
+Characters or objects that can create/destroy brown dwarfs.
+
+===[[:Category:Tier 4|Tier 4]]: Stellar===
+
+====[[:Category:Tier Low 4-C|Low 4-C]]: Small Star level====
+Characters or objects that can create/destroy small stars.
+
+====[[:Category:Tier 4-C|4-C]]: Star level====
+Characters or objects that can create/destroy a star.
+
+====[[:Category:Tier High 4-C|High 4-C]]: Large Star level====
+Characters or objects that can create/destroy a large star.
+
+====[[:Category:Tier 4-B|4-B]]: Solar System level====
+Characters or objects that can create/destroy a solar system.
+
+====[[:Category:Tier 4-A|4-A]]: Multi-Solar System level====
+Characters or objects that can create/destroy multiple solar systems.
+
+===[[:Category:Tier 3|Tier 3]]: Cosmic===
+
+====[[:Category:Tier 3-C|3-C]]: Galaxy level====
+
+Characters or objects that can create or destroy a galaxy when the space between celestial bodies is taken into account, not merely the matter encompassed by them.
+
+====[[:Category:Tier 3-B|3-B]]: Multi-Galaxy level====
+
+Characters or objects that can create or destroy multiple galaxies when the space between celestial objects is taken into account as well.
+
+====[[:Category:Tier 3-A|3-A]]: Universe level====
+Characters or objects that can create or destroy all celestial bodies within a finite 3-D space at least equivalent in size to the observable [[Universe|universe]] via an omnidirectional explosion that covers the entire space, alternately create or significantly affect<ref group=note>"Significantly affect" is here used as an umbrella term for feats that don't involve direct creation or destruction but are comparable to them in power, such as warping and distorting the entirety of the structure in question, sustaining its existence with energy, merging the structure with another one, etc.</ref> a 3-D universe or a pocket dimension of comparable size, which does not involve the destruction and/or creation of space-time.
+
+====[[:Category:Tier High 3-A|High 3-A]]: High Universe level====
+Characters or objects that demonstrate an infinite amount of energy on a 3-D scale, such as creating or destroying infinite mass or affecting an infinite 3-D space. This extends to an infinite number of finite or infinite-sized 3-D universes or pocket dimensions [[Media:ANd9GcQUwWqJr8YlVS54BzuGJw57Wg2YGGqYKmdF4YJFis9Fd603SVSX.png|when not accounting for any higher dimensions or time]]. Large numbers of infinite 3-D universes, unless causally closed from one another by a separate spacetime or existence, only count for a higher level of this tier. Being "infinitely" stronger than this level, unless uncountably so, does not qualify for any higher tier.
+
+===[[:Category:Tier 2|Tier 2]]: Multiversal===
+
+====[[:Category:Tier Low 2-C|Low 2-C]]: Universe level+====
+Characters or objects whose power is uncountably infinitely greater than the prior tiers. That is to say, they can significantly affect, create and/or destroy higher-dimensional structures that exceed lesser objects by an uncountably infinite margin. An example of this is 4-dimensional spacetime continuums of universal size, but this can be generalized to any 4-dimensional structure of a similar scope.
+
+====[[:Category:Tier 2-C|2-C]]: Low Multiverse level====
+Characters or objects that can significantly affect, create and/or destroy small multiverses composed of two to a thousand separate space-time continuums, or an equivalent.
+
+====[[:Category:Tier 2-B|2-B]]: Multiverse level====
+Characters or objects that can significantly affect, create and/or destroy larger multiverses composed of 1001 to any higher finite amount of separate space-time continuums.
+
+====[[:Category:Tier 2-A|2-A]]: Multiverse level+====
+Characters or objects that can significantly affect, create and/or destroy a countably infinite number of separate space-time continuums.
+
+===[[:Category:Tier 1|Tier 1]]: Higher Infinity===
+Characters whose degree of power extends to cosmological constructs beyond those above. This varies from higher-dimensional constructs infinitely exceeding those of 4 dimensions, to characters who transcend the conventional notion of numerical dimensions, both countably and uncountably infinite, up to characters who wholly surpass quantitative differences in size.
+
+====[[:Category:Tier Low 1-C|Low 1-C]]: Low Complex Multiverse level====
+Characters or objects who can significantly affect, create and/or destroy higher-dimensional structures that are one uncountably infinite level<ref group=note>An "uncountably infinite level" refers to a power gap placing something uncountably infinitely above something else.</ref> above '''Low 2-C''' structures. In ordinary distribution, this corresponds to R^5 (5-dimensional real coordinate space).
+
+Equivalently, this tier can be reached by affecting/creating/destroying/embodying an uncountably infinite number of universes (More specifically, as many universes [[Wikipedia:Cardinality of the continuum|as there are real numbers]]).
+
+====[[:Category:Tier 1-C|1-C]]: Complex Multiverse level====
+Characters or objects who can significantly affect, create and/or destroy higher-dimensional structures that are two to five uncountably infinite levels above '''Low 2-C''' structures. In ordinary distribution, this corresponds to R^6 to R^9 (6 to 9-dimensional real coordinate space).
+
+====[[:Category:Tier High 1-C|High 1-C]]: High Complex Multiverse level====
+Characters or objects who can significantly affect, create and/or destroy higher-dimensional structures that are six to seven uncountably infinite levels above '''Low 2-C''' structures. In ordinary distribution, this corresponds to R^10 to R^11 (10 to 11-dimensional real coordinate space).
+
+====[[:Category:Tier 1-B|1-B]]: Hyperverse level====
+Characters or objects who can significantly affect, create and/or destroy higher-dimensional structures that are eight to any higher finite number of uncountably infinite levels above '''Low 2-C''' structures. In ordinary distribution, this corresponds to R^12 and higher finite exponents (12-dimensional higher finite numbers of real coordinate space).
+
+====[[:Category:Tier High 1-B|High 1-B]]: High Hyperverse level====
+Characters or objects who can significantly affect, create and/or destroy infinite-dimensional space. Characters who can meddle with spaces with uncountably infinite or above dimensions should have a "'''+'''" modifier in their [[Attack Potency]] section ('''High Hyperverse level+''').
+
+====[[:Category:Tier Low 1-A|Low 1-A]]: Low Outerverse level====
+Characters whose power is on the level of the [[Wikipedia:Von Neumann universe|Von Neumann Universe]]. That is, they either encompass, or can affect structures which encompass, the collection including all possible dimensional spaces.
+
+As a general rule-of-thumb, statements of being "above dimensions" and the like, whenever validly indicating a superiority over higher dimensions, fall under this tier without further context. See [[Tiering System FAQ|here]] for more information.
+
+====[[:Category:Tier 1-A|1-A]]: Outerverse level====
+Characters or objects residing in higher states of existence surpassing material composition as a whole, and who are therefore completely unreachable and inaccessible to any and all extensions of the aforementioned structures. Their superiority over such realms, as such, is purely "[[Tiering System FAQ#What is "qualitative superiority"?|qualitative]]"; based entirely on the ontological quality and nature of their existence, rather than any quantitative or numerical principle.
+
+A way to explain their superiority over "physical composition" would be to bring attention to the fact that all of the previous tiers can be expressed as the union of constructs of lower tiers. For example, a 4-dimensional spacetime continuum is at most '''Low 2-C'''. However, an [[Wikipedia:Inaccessible cardinal|inaccessible cardinal]]'s worth of such spacetimes is well into '''High 1-B+'''. In spite of the extremely large gap in size between the individuals comprising this totality and the totality itself, the latter is simply the sum of all the former, and as such both ultimately reside in the same state of existence, and have continuity of composition within that state.
+
+Likewise, even the Von Neumann Universe (As well as [[Wikipedia:Conglomerate (mathematics)|larger structures still]]) is still simply the union of many elements that, individually, are smaller than itself. And the same applies to any mathematical space whatsoever.
+
+A '''1-A''' character or realm, on the other hand, fundamentally surpasses lower states of existence, with their sheer superiority not being expressible as the sum, union or permutation of anything in these lesser states. They, in other words, transcend lower existences to the point that those vanish into nothingness.<ref group=note>It is important to note that a non-physical realm being described as somehow "higher" than a physical world is not sufficient reasoning for this. See [[Tiering System FAQ#Q: How do I determine if something is "transcendent"?|here]] and [[Beyond-Dimensional Existence|here]] for more information. And neither is a character being referred to as a "higher existence," as that can be used in far more mundane contexts as well (e.g. Humans can accurately be called "higher existences" than frogs).</ref>
+
+This tier can be extended into higher levels based on further cases of qualitative superiority, in a similar (but not identical) fashion as Tiers '''1-C''' or '''1-B'''. And should a character or object affect something equivalent to infinitely many levels of qualitative superiority, they should have a "'''+'''" modifier in their [[Attack Potency]] section ('''Outerverse level+''').
+
+====[[:Category:Tier High 1-A|High 1-A]]: High Outerverse level====
+Characters or objects who operate on a [[Tiering System FAQ#Q: Is transcending an 1-A character to the same degree they transcend normal humans High 1-A?|different, superior qualitative framework]] from '''1-A''' entities. That is to say: If there is a hierarchy of '''1-A''' layers, each of which operates within the same framework, with the same "algorithm" dictating the difference between them, a '''High 1-A''' character would transcend the framework entirely, and instead operate on a different, higher hierarchy, governed by another, likewise higher algorithm. In other words, whereas '''1-A''' is a qualitative superiority, '''High 1-A''' represents a "meta"-qualitative superiority.
+
+Similarly to '''1-A''', this tier can be generalized to higher levels of existence. Just as '''1-A''' encompasses qualitative hierarchies, so too can there be meta-qualitative hierarchies. In addition, there can also be "meta"-meta-qualitative superiorities, and so forth, endlessly.
+
+The apex of this tier, represented also by a "'''+'''" modifier in their [[Attack Potency]] section ('''High Outerverse level+'''), corresponds to characters whose power encompasses meta-qualities, meta-meta-qualities, and any and all conceivable extensions of this process, being on a level in which their power influences the space of all logically [[Wikipedia:Possible world|possible worlds]] ([[Tiering System FAQ#Q: When does a set of all possible worlds qualify for High 1-A+?|equivalent to]] "logical space" governed by the [[Wikipedia:Law of thought|three laws of thought]]), being characters who either have the ability to actualize arbitrarily large worlds, or embody the framework of such worlds itself.
+
+That said, characters who embody the framework of all possible worlds properly speaking may be rightly considered more powerful than those that can simply create arbitrarily big possible worlds while nevertheless existing in one.
+
+===[[:Category:Tier 0|Tier 0]]: Boundless===
+Entities who are completely transcendent over any and all forms of hierarchical extension. More specifically: They not only encompass the collection of all possible "qualities" represented by '''High 1-A+''', but also exceed it utterly, existing beyond any and all distinctions between ontologies and any division between objects. They are beyond differentiation, changeless, indivisible, ineffable, self-sufficient and completely unsurpassable. See [[Omnipotence|this page]] for more information on both this tier and the preceding one.
+
+=='''<u>Notes</u>'''==
+
+'''Note 1:'''
+
+Because the distance between any given number of universes embedded in higher-dimensional / higher-order spaces is currently unknowable, it is impossible to quantify the numerical gap between each one of the sub-tiers in Tier 2. As such, it is not allowed to upgrade such a character based solely on multipliers. For example, someone twice as strong as a Low 2-C character would still be Low 2-C, and someone infinitely more powerful than a 2-C would not be 2-A. This does not mean that the difference between these tiers is greater than infinite, merely that the difference is unknown.
+
+'''Note 2:'''
+
+The term "Hyperverse" comes from two words: "hyper," which is used in mathematics to designate higher-dimensional space, and something extreme, above or beyond the usual level. As well as "verse" as a short for "universe". So it is intended as a description of a superior existence beyond conventional reality.
+
+Similarly, "Hypoverse" is derived from "hypo", which is used as a suffix to mean being "under", "lesser than", or "below" something. Furthermore, it is the literary inverse of "hyper", which makes it a fitting complement to the existing terminology.
+
+'''Note 3:'''
+
+Keep in mind that certain tiers do not necessarily correspond to the destruction of their namesakes in any meaningful fashion. This is because the minimum requirements for these tiers are arbitrary values.
+
+Here is a list of the tiers in question:
+{| class="wikitable mw-collapsible mw-collapsed"
+!
+|-
+|
+*'''9-A: Small Building level''' (0.005 tons-0.25 tons)
+
+*'''8-C: Building level''' (0.25 tons-2 tons)
+
+*'''High 8-C: Large Building level''' (2 tons-11 tons)
+
+*'''8-B: City Block level''' (11 tons-100 tons)
+
+*'''8-A: Multi-City Block level''' (100 tons-1 kiloton)
+
+*'''Low 7-C: Small Town level''' (1 kiloton-5.8 kilotons)
+
+*'''7-C: Town level''' (5.8 kilotons-100 kilotons)
+
+*'''High 7-C: Large Town level''' (100 kilotons-1 megatons)
+
+*'''Low 7-B: Small City level''' (1 megatons-6.3 megatons)
+
+*'''7-A: Mountain level''' (100 megatons-1 gigaton)
+
+*'''High 7-A: Large Mountain level''' (1 gigaton-4.3 gigatons)
+
+*'''High 6-C: Large Island level''' (100 gigatons-1 teraton)
+
+*'''Low 6-B: Small Country level''' (1 teraton-7 teratons)
+
+*'''High 6-B: Large Country level''' (100 teratons-760 teratons)
+|}
+
+Tiers between '''9-A''' and '''3-B''', even those which do correspond with their namesakes, should not be assigned unless there are accepted calculations, multipliers, and/or reliably stated precise Joule values that correspond with those ratings, as many verses can have their own context result in these feats being above or below their namesakes. The exceptions are that the lower borders of '''5-B''', '''4-C''', '''4-B''', '''4-A''', '''3-C''', and '''3-B''' can be considered standard calculations for destroying a planet, a star, a solar system, two or more solar systems, a galaxy, and two or more galaxies respectively, and adding those tiers based on those specific feats is allowed.
+
+'''Note 4:'''
+
+Note that merging universes/realms does not necessarily warrant a Tier 2 rating, unless said universes/realms are provably separate spacetimes.
+
+'''Note 5:'''
+
+Prior to 2024, '''Tier High 5-A: Brown Dwarf level''' used to be named ‘'''Tier High 5-A: Dwarf Star level'''’, which we changed in 2024 in recognition that brown dwarfs (the class of objects whose GBE values are used to outline the tier) do not meet the criteria for being a star. Stars, including dwarf stars, are astronomical objects of sufficient mass to fuse protium (the most common isotope of hydrogen), a criteria brown dwarfs do not meet. Brown dwarfs are instead an independent class of astronomical objects larger than planets that hold enough mass to fuse deuterium (which becomes possible around 13 Jupiter masses), but not massive enough to fuse protium (which becomes possible around 78 Jupiter masses). Actual dwarf stars populate '''Tier 4''', such as red dwarfs which outline Tier '''Low 4-C''', and yellow dwarfs which outline '''Tier 4-C'''.
+
+If you encounter a page that was accidentally overlooked, and still uses old name instead of the one listed above, we would appreciate the help to correct it.
+
+'''Note 6:'''
+
+An infinite space that contains a finite number of universes is not considered '''2-A''' as [[vsforum:threads/174756|discussed here]]. It theoretically, being capable of holding infinite universes is not enough justification, unless the significance of the said space in question is elaborated on. This is due to the fact that any standard '''Low 2-C''' infinite space would theoretically also be capable of such, and without more evidence that would compare it to a '''2-A''' structure, it cannot be rated as such as that tier is mainly defined by the number of universes held within a space.
+
+==See also==
+* [[Set Theory Explanation Page]]
+* [[Tiering System FAQ]]
+
+==Other statistics==
+* [[Attack Potency]]
+* [[Speed]]
+* [[Lifting Strength]]
+* [[Striking Strength]]
+* [[Durability]]
+* [[Range]]
+* [[Intelligence]]
+* [[Stamina]]
+
+==Footnotes==
+<references group=note/>
+{{Discussions}}
+[[Category:Important]]
