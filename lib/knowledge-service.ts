@@ -3,10 +3,23 @@
  * 
  * Bridges the knowledge dictionary with the AI judge system.
  * Provides context enrichment for character profiles and debate analysis.
+ * 
+ * NOW INCLUDES: Scientific knowledge (physics formulas, feat methodology)
+ * and Death Battle format template for structured AI output.
  */
 
 import { getKnowledge, type PowerEntry, type TierEntry } from './knowledge-base';
 import type { CharacterProfile } from './types';
+import {
+  PHYSICS_FORMULAS,
+  ENERGY_UNITS,
+  SPEED_TIERS,
+  PHYSICAL_CONSTANTS,
+  REFERENCE_FEATS,
+  FEAT_METHODOLOGY,
+  SCIENTIFIC_REASONING,
+} from './death-battle-science';
+import { buildDeathBattleSystemPrompt } from './death-battle-format';
 
 // ═══════════════════════════════════════════
 // Context Builder for AI
@@ -20,7 +33,8 @@ export function buildKnowledgeSystemPrompt(): string {
   const kb = getKnowledge();
   const stats = kb.getStats();
   
-  return `You are an expert Death Battle judge powered by a comprehensive VS Battles Wiki knowledge base.
+  // Build the base knowledge prompt
+  const basePrompt = `You are an expert Death Battle judge powered by a comprehensive VS Battles Wiki knowledge base.
 
 KNOWLEDGE BASE: ${stats.total_entries} entries (${stats.tiers} tiers, ${stats.powers} powers, ${stats.stats} stats, ${stats.glossary} glossary terms)
 
@@ -34,21 +48,110 @@ ${formatTierSummary(kb)}
 
 ## Key Rules
 
-${formatRules(kb)}
+${formatRules(kb)}`;
 
-## Your Role
+  // Build the science prompt
+  const sciencePrompt = buildSciencePrompt();
 
-When analyzing a matchup:
-1. Identify each character's tier from their profile data
-2. Compare stats (AP, Speed, Durability, Hax)
-3. Check for hax abilities that could bypass stat advantages
-4. Apply the correct difficulty rating based on the gap
-5. Cite specific feats or abilities from the profiles
-6. Never invent feats — only use what's in the profile data
+  // Use the Death Battle format template to combine everything
+  return buildDeathBattleSystemPrompt(basePrompt, sciencePrompt);
+}
 
-IMPORTANT: If a character's tier is unknown or couldn't be parsed, say so explicitly. Do not guess.
+/**
+ * Build the scientific knowledge section of the prompt.
+ */
+function buildSciencePrompt(): string {
+  let output = `# 🔬 SCIENTIFIC KNOWLEDGE BASE
 
-Return your analysis as structured JSON matching the Verdict schema.`;
+## Physics Formulas Used in Death Battle
+
+`;
+  
+  // Add key formulas
+  for (const [key, formula] of Object.entries(PHYSICS_FORMULAS)) {
+    output += `**${formula.formula}**
+${formula.description}
+Example: ${formula.example}
+
+`;
+  }
+
+  // Add energy unit conversions
+  output += `## Energy Unit Conversions
+
+`;
+  const importantUnits = ['joule', 'ton_tnt', 'kiloton_tnt', 'megaton_tnt', 'gigaton_tnt', 'foe'];
+  for (const unitKey of importantUnits) {
+    const unit = ENERGY_UNITS[unitKey as keyof typeof ENERGY_UNITS];
+    output += `- **${unit.symbol}** = ${unit.joules.toExponential(2)} J — ${unit.description}
+`;
+  }
+
+  // Add speed tiers
+  output += `
+## Speed Classifications
+
+`;
+  for (const [key, tier] of Object.entries(SPEED_TIERS)) {
+    output += `- **${tier.label}**: ${tier.mps.toExponential(2)} m/s — ${tier.description}
+`;
+  }
+
+  // Add reference feats
+  output += `
+## Reference Feats (Pre-calculated)
+
+### Destruction Feats
+`;
+  for (const [key, feat] of Object.entries(REFERENCE_FEATS)) {
+    if ('energy_joules' in feat) {
+      output += `- ${feat.description} — ${feat.energy_joules.toExponential(2)} J
+`;
+    }
+  }
+
+  output += `
+### Speed Feats
+`;
+  for (const [key, feat] of Object.entries(REFERENCE_FEATS)) {
+    if ('speed_mps' in feat) {
+      output += `- ${feat.description} — ${feat.speed_mps.toExponential(2)} m/s
+`;
+    }
+  }
+
+  output += `
+### Lifting Feats
+`;
+  for (const [key, feat] of Object.entries(REFERENCE_FEATS)) {
+    if ('force_newtons' in feat) {
+      output += `- ${feat.description} — ${feat.force_newtons.toExponential(2)} N
+`;
+    }
+  }
+
+  // Add feat methodology
+  output += `
+${FEAT_METHODOLOGY}
+
+## Scientific Reasoning Principles
+
+${SCIENTIFIC_REASONING.map((r, i) => `${i + 1}. ${r}`).join('\n')}
+
+## Physical Constants Reference
+
+- Speed of Light (c): ${PHYSICAL_CONSTANTS.speed_of_light.toExponential(3)} m/s
+- Mach 1: ${PHYSICAL_CONSTANTS.mach_1} m/s
+- Earth Mass: ${PHYSICAL_CONSTANTS.earth_mass.toExponential(3)} kg
+- Earth Radius: ${PHYSICAL_CONSTANTS.earth_radius.toLocaleString()} m
+- Moon Mass: ${PHYSICAL_CONSTANTS.moon_mass.toExponential(3)} kg
+- Sun Mass: ${PHYSICAL_CONSTANTS.sun_mass.toExponential(3)} kg
+- Gravitational Constant (G): ${PHYSICAL_CONSTANTS.gravitational_constant.toExponential(3)} m³/(kg·s²)
+- Standard Gravity (g): ${PHYSICAL_CONSTANTS.standard_gravity} m/s²
+- Earth GBE: ${REFERENCE_FEATS.destroy_planet.energy_joules.toExponential(2)} J
+`;
+
+  return output;
 }
 
 /**

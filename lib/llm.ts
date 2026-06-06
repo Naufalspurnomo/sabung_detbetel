@@ -114,7 +114,7 @@ function buildMessages(input: {
   char2: CharacterProfile;
   arguments: DebateArgument[];
 }): ChatMessage[] {
-  // Build knowledge-enriched system prompt
+  // Build knowledge-enriched system prompt (includes science + format)
   const knowledgePrompt = buildKnowledgeSystemPrompt();
 
   // Enrich character profiles with knowledge base data
@@ -149,28 +149,73 @@ You are analyzing: **${input.char1.pageTitle}** vs **${input.char2.pageTitle}**
 
 ${input.arguments.length > 0 ? `### User Arguments\n${input.arguments.map((a, i) => `[${i + 1}] ${a.characterTitle}: ${a.content}`).join("\n")}` : ""}`;
 
-  const userMessage = `Analyze this Death Battle matchup and return a JSON verdict.
+  const userMessage = `Analyze this Death Battle matchup using the FULL scientific methodology from your system prompt.
 
-Required JSON schema:
+You MUST follow the Death Battle format:
+1. Character Breakdown (origin, key version, tier, best feat, key abilities, weaknesses)
+2. Stat Comparison (AP, Speed, Durability, Lifting, Striking, Stamina, Range, Intelligence — with winner per category)
+3. Feat Analysis (SHOW YOUR CALCULATIONS — convert feats to Joules, m/s, Newtons using real physics)
+4. Hax Analysis (list all hax abilities and whether they work on the opponent)
+5. Intelligence & Experience comparison
+6. Verdict with difficulty and confidence
+
+Return your analysis as JSON with this schema:
+
 {
   "winnerTitle": "character name",
   "loserTitle": "character name",
-  "difficulty": "No Diff" | "Low Diff" | "Mid Diff" | "High Diff" | "Extreme Diff",
+  "difficulty": "No Diff" | "Neg Diff" | "Low Diff" | "Mid Diff" | "High Diff" | "Extreme Diff",
   "confidence": "decisive" | "high" | "medium" | "low" | "narrow",
-  "summary": "2-3 sentence explanation in Indonesian",
-  "keyFactor": "the single most important factor",
+  "summary": "2-3 sentence explanation in Indonesian — dramatic but grounded in analysis",
+  "keyFactor": "the SINGLE most important reason this character wins",
+  "characterBreakdown": {
+    "char1": {
+      "origin": "brief backstory",
+      "keyVersion": "which version and why",
+      "tier": "tier with reasoning",
+      "bestFeat": "specific feat with calculation",
+      "keyAbilities": ["top 3-5 abilities"],
+      "weaknesses": ["exploitable weaknesses"]
+    },
+    "char2": { "same structure" }
+  },
   "statBreakdown": [
-    {"label": "Attack Potency", "char1Value": "...", "char2Value": "...", "winner": "char1|char2|tie|unknown", "reasoning": "..."},
+    {"label": "Attack Potency", "char1Value": "value with calc", "char2Value": "value with calc", "winner": "char1|char2|tie|unknown", "reasoning": "why, with feat reference"},
     {"label": "Speed", "char1Value": "...", "char2Value": "...", "winner": "...", "reasoning": "..."},
     {"label": "Durability", "char1Value": "...", "char2Value": "...", "winner": "...", "reasoning": "..."},
-    {"label": "Hax / Ability", "char1Value": "...", "char2Value": "...", "winner": "...", "reasoning": "..."}
-  ]
+    {"label": "Lifting Strength", "char1Value": "...", "char2Value": "...", "winner": "...", "reasoning": "..."},
+    {"label": "Striking Strength", "char1Value": "...", "char2Value": "...", "winner": "...", "reasoning": "..."},
+    {"label": "Stamina", "char1Value": "...", "char2Value": "...", "winner": "...", "reasoning": "..."},
+    {"label": "Range", "char1Value": "...", "char2Value": "...", "winner": "...", "reasoning": "..."},
+    {"label": "Intelligence", "char1Value": "...", "char2Value": "...", "winner": "...", "reasoning": "..."}
+  ],
+  "featAnalysis": {
+    "char1AP": {"feat": "description", "calculation": "show the math", "result_joules": 0, "source": "episode/chapter"},
+    "char2AP": {"same"},
+    "char1Speed": {"feat": "...", "calculation": "...", "result_mps": 0, "source": "..."},
+    "char2Speed": {"same"},
+    "char1Durability": {"feat": "...", "equivalent_energy_joules": 0, "source": "..."},
+    "char2Durability": {"same"}
+  },
+  "haxAnalysis": {
+    "char1Hax": [{"ability": "name", "description": "what it does", "effective": true|false, "reason": "why it would/wouldn't work"}],
+    "char2Hax": [{"same"}],
+    "haxVerdict": "who has hax advantage and why"
+  },
+  "intelligenceComparison": {
+    "char1": "combat IQ, experience, tactics",
+    "char2": "same",
+    "advantage": "who and why"
+  }
 }
 
-IMPORTANT:
+CRITICAL RULES:
+- SHOW YOUR CALCULATIONS for feats. Convert to real units (Joules, m/s, Newtons).
+- Use the physics formulas and reference feats from your system prompt.
 - Only use data from the profiles above. Do NOT invent feats.
 - Apply Death Battle rules: feats > statements, no outside help, both at peak.
 - If tier is unknown, say so explicitly.
+- Respond in Indonesian for summary. Technical terms in English.
 - Return ONLY valid JSON, no markdown fences.`;
 
   return [
