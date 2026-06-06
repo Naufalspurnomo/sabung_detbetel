@@ -8,7 +8,8 @@
  * Used by AI to understand Death Battle terminology and produce valid arguments.
  */
 
-import knowledgeData from '@/data/knowledge/knowledge_dictionary.json';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const knowledgeData = require('../data/knowledge/knowledge_dictionary.json') as KnowledgeDictionary;
 
 // ═══════════════════════════════════════════
 // Types
@@ -331,7 +332,7 @@ export class DeathBattleKnowledge {
         }
       }
       // Prefix match
-      for (const [indexedWord, paths] of this.searchIndex) {
+      for (const [indexedWord, paths] of Array.from(this.searchIndex)) {
         if (indexedWord.startsWith(word) || word.startsWith(indexedWord)) {
           for (const path of paths) {
             scores.set(path, (scores.get(path) || 0) + 1);
@@ -340,7 +341,7 @@ export class DeathBattleKnowledge {
       }
     }
 
-    const sorted = [...scores.entries()]
+    const sorted = Array.from(scores.entries())
       .sort((a, b) => b[1] - a[1])
       .slice(0, limit);
 

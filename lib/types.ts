@@ -67,6 +67,8 @@ export type Debate = {
   verdict?: Verdict;
   createdAt: string;
   judgedAt?: string;
+  aiPowered?: boolean;
+  aiUsage?: { prompt_tokens: number; completion_tokens: number; total_tokens: number };
 };
 
 export type StatAdvantage = {

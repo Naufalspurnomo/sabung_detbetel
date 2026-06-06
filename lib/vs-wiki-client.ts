@@ -118,10 +118,11 @@ export async function searchCharacters(query: string): Promise<SearchResult[]> {
   });
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = await fetch(`${API_BASE}?${params.toString()}`, {
       headers: wikiHeaders(),
       next: { revalidate: 3600 }
-    });
+    } as any);
     if (!response.ok) throw new Error(`VS Wiki search failed: ${response.status}`);
 
     const data = (await response.json()) as SearchApiResponse;
@@ -156,10 +157,11 @@ export async function getCharacterProfile(pageTitle: string): Promise<CharacterP
   });
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = await fetch(`${API_BASE}?${params.toString()}`, {
       headers: wikiHeaders(),
       next: { revalidate: 86400 }
-    });
+    } as any);
     if (!response.ok) throw new Error(`Profil VS Wiki gagal dimuat: ${response.status}`);
 
     const data = (await response.json()) as PageApiResponse;
@@ -574,7 +576,7 @@ function slugify(value: string): string {
 }
 
 function unique(values: string[]): string[] {
-  return [...new Set(values)];
+  return Array.from(new Set(values));
 }
 
 function escapeRegex(value: string): string {

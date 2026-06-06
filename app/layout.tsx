@@ -12,7 +12,8 @@ const navItems = [
   { href: "/search", label: "Cari" },
   { href: "/matchup", label: "Debat" },
   { href: "/debates", label: "Arena" },
-  { href: "/tools/respect-rt", label: "Alat" }
+  { href: "/tools/respect-rt", label: "Alat" },
+  { href: "/settings", label: "Pengaturan" }
 ];
 
 export default function RootLayout({

@@ -89,7 +89,7 @@ const speedSynonyms: Record<string, string> = {
 
 export function resolveTierRank(tierText: string): number | null {
   const normalized = tierText.replace(/\s+/g, " ").trim().toLowerCase();
-  const matches = [...tierRanks.entries()]
+  const matches = Array.from(tierRanks.entries())
     .filter(([tier]) => normalized.includes(tier))
     .sort((a, b) => b[0].length - a[0].length);
 
