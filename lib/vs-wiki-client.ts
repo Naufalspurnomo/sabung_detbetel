@@ -383,8 +383,8 @@ function readInlineBold(section: string, names: string[]): string | undefined {
     const escaped = escapeRegex(name);
     let lastMatch: string | undefined;
 
-    // Terminators: next bold field, tabber separator, double newline, Border template, </tabber>
-    const T = "(?=\\n'''\\[\\[|\\n'''[A-Z]|\\|\\-\\||<\\/tabber>|\\n\\n|\\{\\{Border|$)";
+    // Terminators: next bold field (with optional * or |- prefix), tabber separator, double newline, Border template, </tabber>
+    const T = "(?=\\n\\*?'''\\[\\[|\\n\\*?'''[A-Z]|\\|\\-\\||<\\/tabber>|\\n\\n|\\{\\{Border|$)";
 
     // Try: '''[[LinkText|FieldName]]:''' value
     const lp = `'''\\s*\\[\\[[^\\]]*${escaped}[^\\]]*\\]\\]\\s*:?\\s*'''\\s*:?\\s*([\\s\\S]*?)${T}`;
@@ -434,28 +434,41 @@ function cleanWikiText(value: string): string {
   r = r.replace(/<\/?tabber[^>]*>/gi, "");
   r = r.replace(/<[^>]+>/g, "");
 
-  // 4. Tabber key separators: |-|Key= → remove
-  r = r.replace(/\|-\|[^=]*=/g, " ");
+  // 4. Tabber key separators: |-|Key= or |-Key= → remove
+  r = r.replace(/\|-?\|[^=]*=/g, " ");
+  r = r.replace(/\|-[^=|]*=/g, " ");
 
-  // 5. #tag:tabber
+  // 5. #tag:tabber and other complex templates
   r = r.replace(/\{\{#tag:tabber\|[\s\S]*?\}\}/gi, "");
 
   // 6. Resolve tier templates FIRST
   r = resolveTierTemplates(r);
 
-  // 7. Strip remaining {{...}} templates (iterative for nesting)
-  for (let i = 0; i < 8; i++) {
+  // 7. Strip ALL {{...}} templates (iterative for nesting) — including Border, Scroll, etc.
+  for (let i = 0; i < 12; i++) {
     const before = r;
     r = r.replace(/\{\{(?:[^{}]|\{[^{}]*\})*\}\}/g, "");
     if (r === before) break;
   }
 
+  // 7b. Strip any remaining unclosed {{ fragments
+  r = r.replace(/\{\{[^}]*$/g, "");
+  r = r.replace(/\}\}/g, "");
+
   // 8. External links: [https://url text] → text
   r = r.replace(/\[https?:\/\/[^\s\]]+(?:\s+([^\]]+))?\]/g, "$1");
 
   // 9. Internal links: [[Page|Display]] → Display, [[Page]] → Page
-  r = r.replace(/\[\[([^|\]#]+)(?:#[^|\]]+)?\|([^\]]+)\]\]/g, "$2");
-  r = r.replace(/\[\[([^\]|#]+)(?:#[^\]]+)?\]\]/g, "$1");
+  //    ITERATIVE to handle nested/adjacent links
+  for (let i = 0; i < 3; i++) {
+    const before = r;
+    r = r.replace(/\[\[([^|\]#]+)(?:#[^|\]]+)?\|([^\]]+)\]\]/g, "$2");
+    r = r.replace(/\[\[([^|\]#]+)(?:#[^\]]+)?\]\]/g, "$1");
+    if (r === before) break;
+  }
+  // Strip any remaining [[ or ]] artifacts
+  r = r.replace(/\[\[/g, "");
+  r = r.replace(/\]\]/g, "");
 
   // 10. Bold/italic
   r = r.replace(/'''/g, "");
@@ -466,12 +479,22 @@ function cleanWikiText(value: string): string {
   r = r.replace(/&amp;/g, "&");
   r = r.replace(/&lt;/g, "<");
   r = r.replace(/&gt;/g, ">");
+  r = r.replace(/&#\d+;/g, "");
 
-  // 12. Pipe artifacts
+  // 12. Pipe artifacts — leading/trailing pipes
   r = r.replace(/^\s*\|\s*/, "");
   r = r.replace(/\s*\|\s*$/, "");
+  // Multiple pipes → single comma
+  r = r.replace(/\s*\|\s*/g, ", ");
 
-  // 13. Whitespace
+  // 13. Category/Template fragments
+  r = r.replace(/\[\[Category:[^\]]*\]\]/gi, "");
+  r = r.replace(/\{\{[^}]*\}\}/g, "");
+
+  // 14. Cleanup: multiple commas, trailing punctuation, whitespace
+  r = r.replace(/,\s*,/g, ",");
+  r = r.replace(/^[\s,]+/, "");
+  r = r.replace(/[\s,]+$/, "");
   r = r.replace(/\s+/g, " ").trim();
 
   return r;
