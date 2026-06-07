@@ -110,24 +110,7 @@ export default function HomePage() {
         ))}
       </section>
 
-      <section className="container-shell pb-12">
-        <div className="rounded-lg border border-amber-300/20 bg-amber-300/10 p-5">
-          <p className="text-sm font-black uppercase tracking-[0.16em] text-amber-200">
-            Status grounding data
-          </p>
-          <h2 className="mt-2 text-2xl font-black text-white">
-            Belum semua ilmu VSB diimplementasikan 100%.
-          </h2>
-          <p className="mt-3 max-w-4xl text-sm leading-7 text-amber-50/80">
-            Yang sudah ada sekarang: pengambilan profil langsung, parser stat
-            dasar, aturan tier/feat/scaling/hax, dan wasit deterministik.
-            Yang belum production-grade: full index seluruh halaman VSB,
-            calc-blog extraction, semua key/varian karakter, resistance matrix,
-            dan RAG sumber lengkap. Karena itu UI menampilkan sumber dan
-            tingkat keyakinan agar AI tidak pura-pura absolut.
-          </p>
-        </div>
-      </section>
+
     </main>
   );
 }
