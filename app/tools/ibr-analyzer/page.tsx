@@ -122,16 +122,16 @@ export default function IbrAnalyzerPage() {
   }
 
   return (
-    <main className="container-shell py-10">
+    <main className="container-shell py-6 sm:py-10">
       {/* Header */}
-      <div className="mb-7">
-        <p className="text-sm font-black uppercase tracking-[0.18em] text-slate-500">
+      <div className="mb-5 sm:mb-7">
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500 sm:text-sm">
           IBR — Infinite Battle Reborn
         </p>
-        <h1 className="mt-2 text-4xl font-black text-white">
+        <h1 className="mt-2 text-2xl font-black text-white sm:text-3xl lg:text-4xl">
           Analisis Postingan Grup
         </h1>
-        <p className="mt-3 max-w-2xl text-slate-400">
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400 sm:mt-3 sm:text-base">
           Paste link postingan dari grup Facebook IBR. AI akan membaca teks,
           gambar, dan link dalam postingan, lalu memberikan analisis Death Battle
           berbasis data VS Battles Wiki.
@@ -140,7 +140,7 @@ export default function IbrAnalyzerPage() {
 
       {/* Input Form */}
       <div className="max-w-2xl">
-        <div className="flex gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row">
           <input
             type="url"
             value={postUrl}
@@ -155,7 +155,7 @@ export default function IbrAnalyzerPage() {
           <button
             onClick={handleExtract}
             disabled={loading || !postUrl.trim()}
-            className="rounded-lg bg-red-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-red-400 disabled:opacity-40"
+            className="shrink-0 rounded-lg bg-red-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-red-400 active:scale-95 disabled:opacity-40"
           >
             {loading ? "Mengambil..." : "Ambil Postingan"}
           </button>
@@ -172,16 +172,16 @@ export default function IbrAnalyzerPage() {
 
       {/* Error */}
       {error && (
-        <div className="mt-5 max-w-2xl rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+        <div className="mt-4 max-w-2xl rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300 sm:mt-5">
           {error}
         </div>
       )}
 
       {/* Extracted Post Preview */}
       {extractedPost && !result && (
-        <div className="mt-8 max-w-2xl space-y-5">
-          <div className="rounded-lg border border-white/10 bg-white/[0.02] p-5">
-            <div className="flex items-center justify-between">
+        <div className="mt-6 max-w-2xl space-y-4 sm:mt-8 sm:space-y-5">
+          <div className="rounded-lg border border-white/10 bg-white/[0.02] p-4 sm:p-5">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <p className="text-sm font-bold text-white">
                   {extractedPost.author}
@@ -202,8 +202,8 @@ export default function IbrAnalyzerPage() {
 
             {/* Text */}
             {extractedPost.text && (
-              <div className="mt-4 rounded-md bg-black/30 p-4">
-                <p className="whitespace-pre-wrap text-sm text-slate-300">
+              <div className="mt-4 rounded-md bg-black/30 p-3 sm:p-4">
+                <p className="whitespace-pre-wrap break-words text-sm text-slate-300">
                   {extractedPost.text}
                 </p>
               </div>
@@ -222,7 +222,7 @@ export default function IbrAnalyzerPage() {
                       className="aspect-square overflow-hidden rounded-md border border-white/10 bg-black/30"
                     >
                       {img.startsWith("https://mbasic.facebook.com") ? (
-                        <div className="flex h-full items-center justify-center text-xs text-slate-500">
+                        <div className="flex h-full items-center justify-center p-2 text-center text-xs text-slate-500">
                           Foto FB (klik untuk lihat)
                         </div>
                       ) : (
@@ -263,10 +263,10 @@ export default function IbrAnalyzerPage() {
             )}
 
             {/* Summary */}
-            <div className="mt-4 rounded-md bg-blue-500/5 border border-blue-500/20 px-3 py-2">
+            <div className="mt-4 rounded-md border border-blue-500/20 bg-blue-500/5 px-3 py-2">
               <p className="text-xs text-slate-400">
-                Terdeteksi: <strong className="text-slate-300">{extractedPost.text.length}</strong> karakter teks, {" "}
-                <strong className="text-slate-300">{extractedPost.images.length}</strong> gambar, {" "}
+                Terdeteksi: <strong className="text-slate-300">{extractedPost.text.length}</strong> karakter teks,{" "}
+                <strong className="text-slate-300">{extractedPost.images.length}</strong> gambar,{" "}
                 <strong className="text-slate-300">{extractedPost.links.length}</strong> link
               </p>
             </div>
@@ -276,7 +276,7 @@ export default function IbrAnalyzerPage() {
           <button
             onClick={handleAnalyze}
             disabled={analyzing}
-            className="w-full rounded-lg bg-red-500 py-3.5 text-sm font-black text-white transition hover:bg-red-400 disabled:opacity-40"
+            className="w-full rounded-lg bg-red-500 py-3.5 text-sm font-black text-white transition hover:bg-red-400 active:scale-[0.98] disabled:opacity-40"
           >
             {analyzing
               ? "AI sedang menganalisis..."
@@ -287,9 +287,9 @@ export default function IbrAnalyzerPage() {
 
       {/* AI Analysis Result */}
       {result && (
-        <div className="mt-8 max-w-3xl space-y-5">
+        <div className="mt-6 max-w-3xl space-y-4 sm:mt-8 sm:space-y-5">
           {/* Post Summary */}
-          <div className="rounded-lg border border-white/10 bg-white/[0.02] p-5">
+          <div className="rounded-lg border border-white/10 bg-white/[0.02] p-4 sm:p-5">
             <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
               Postingan dari {result.post.author}
             </p>
@@ -304,8 +304,8 @@ export default function IbrAnalyzerPage() {
           </div>
 
           {/* AI Analysis */}
-          <div className="rounded-lg border border-red-500/20 bg-red-500/5 p-6">
-            <h2 className="text-lg font-black text-white">
+          <div className="rounded-lg border border-red-500/20 bg-red-500/5 p-4 sm:p-6">
+            <h2 className="text-base font-black text-white sm:text-lg">
               Hasil Analisis AI
             </h2>
             <div className="mt-4 prose prose-invert prose-sm max-w-none">
@@ -320,7 +320,7 @@ export default function IbrAnalyzerPage() {
               setExtractedPost(null);
               setPostUrl("");
             }}
-            className="rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-white/10"
+            className="rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-white/10 active:scale-95"
           >
             Analisis Postingan Lain
           </button>

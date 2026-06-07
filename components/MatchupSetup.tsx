@@ -35,15 +35,18 @@ export function MatchupSetup() {
 
       router.push(`/matchup/${payload.id}`);
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "Gagal membuat matchup");
+      setError(
+        caught instanceof Error ? caught.message : "Gagal membuat matchup"
+      );
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <form onSubmit={onSubmit} className="surface rounded-lg p-5">
-      <div className="grid gap-4 md:grid-cols-[1fr_auto_1fr] md:items-end">
+    <form onSubmit={onSubmit} className="surface rounded-lg p-4 sm:p-5">
+      {/* Mobile: stacked, Desktop: side-by-side with VS in middle */}
+      <div className="space-y-4 sm:space-y-0 sm:grid sm:gap-4 sm:grid-cols-[1fr_auto_1fr] sm:items-end">
         <label className="block">
           <span className="text-xs font-black uppercase tracking-[0.16em] text-red-200">
             Pihak 1
@@ -54,9 +57,15 @@ export function MatchupSetup() {
             className="focus-ring mt-2 min-h-12 w-full rounded-md border border-red-400/20 bg-red-500/10 px-4 text-white"
           />
         </label>
-        <div className="grid size-12 place-items-center rounded-md border border-white/10 bg-white/10 text-sm font-black text-white">
-          VS
+
+        {/* VS badge: centered on mobile, in-grid on desktop */}
+        <div className="flex justify-center sm:grid sm:place-items-center sm:size-12 sm:rounded-md sm:border sm:border-white/10 sm:bg-white/10">
+          <span className="hidden sm:block text-sm font-black text-white">VS</span>
+          <span className="sm:hidden text-xs font-black uppercase tracking-[0.2em] text-slate-600">
+            — versus —
+          </span>
         </div>
+
         <label className="block">
           <span className="text-xs font-black uppercase tracking-[0.16em] text-blue-200">
             Pihak 2
@@ -69,14 +78,14 @@ export function MatchupSetup() {
         </label>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
+      <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <div className="inline-grid grid-cols-2 rounded-md border border-white/10 bg-black/20 p-1">
           {(["solo", "duel"] as const).map((item) => (
             <button
               key={item}
               type="button"
               onClick={() => setMode(item)}
-              className={`rounded px-4 py-2 text-sm font-black capitalize ${
+              className={`rounded px-4 py-2.5 text-sm font-black capitalize transition active:scale-95 ${
                 mode === item
                   ? "bg-white text-slate-950"
                   : "text-slate-300 hover:bg-white/10"
@@ -89,7 +98,7 @@ export function MatchupSetup() {
         <button
           type="submit"
           disabled={loading}
-          className="min-h-12 rounded-md bg-white px-6 text-sm font-black text-slate-950 transition hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
+          className="min-h-12 rounded-md bg-white px-6 text-sm font-black text-slate-950 transition hover:bg-slate-200 active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? "Membuat" : "Mulai debat"}
         </button>

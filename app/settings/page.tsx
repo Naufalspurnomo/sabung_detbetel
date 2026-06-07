@@ -88,21 +88,21 @@ export default function SettingsPage() {
   }
 
   return (
-    <main className="container-shell py-10">
-      <div className="mb-7">
-        <p className="text-sm font-black uppercase tracking-[0.18em] text-slate-500">
+    <main className="container-shell py-6 sm:py-10">
+      <div className="mb-5 sm:mb-7">
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-500 sm:text-sm">
           Konfigurasi
         </p>
-        <h1 className="mt-2 text-4xl font-black text-white">
+        <h1 className="mt-2 text-2xl font-black text-white sm:text-3xl lg:text-4xl">
           Pengaturan AI
         </h1>
-        <p className="mt-3 max-w-2xl text-slate-400">
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400 sm:mt-3 sm:text-base">
           Masukkan API key dan URL provider AI kamu. Mendukung semua provider
           OpenAI-compatible: Groq, OpenAI, OpenRouter, atau model lokal.
         </p>
       </div>
 
-      <div className="max-w-xl space-y-5">
+      <div className="max-w-xl space-y-4 sm:space-y-5">
         {/* API URL */}
         <div>
           <label className="mb-1.5 block text-sm font-semibold text-slate-300">
@@ -213,22 +213,22 @@ export default function SettingsPage() {
             Cara ambil: Buka Facebook → F12 → Application → Cookies →
             facebook.com → copy nilai <code className="text-red-300">c_user</code> dan{" "}
             <code className="text-red-300">xs</code>, format:{" "}
-            <code className="text-red-300">c_user=...; xs=...</code>
+            <code className="text-red-300 break-all">c_user=...; xs=...</code>
           </p>
         </div>
 
-        {/* Actions */}
-        <div className="flex gap-3 pt-2">
+        {/* Actions — stack on mobile */}
+        <div className="flex flex-col gap-3 pt-2 sm:flex-row">
           <button
             onClick={handleSave}
-            className="rounded-lg bg-red-500 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-red-400"
+            className="rounded-lg bg-red-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-red-400 active:scale-95 sm:py-2.5"
           >
             {saved ? "Tersimpan!" : "Simpan"}
           </button>
           <button
             onClick={handleTest}
             disabled={testing || !form.apiKey}
-            className="rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-white/10 disabled:opacity-40"
+            className="rounded-lg border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-300 transition hover:bg-white/10 active:scale-95 disabled:opacity-40 sm:py-2.5"
           >
             {testing ? "Menguji..." : "Tes Koneksi"}
           </button>
@@ -256,7 +256,7 @@ export default function SettingsPage() {
             <li>• API key disimpan di localStorage browser kamu</li>
             <li>• Saat analisis matchup, key dikirim via header ke server</li>
             <li>• Server pakai key kamu untuk panggil AI provider</li>
-            <li>• Knowledge base (298 entri) otomatis jadi context AI</li>
+            <li>• Knowledge base (517 entri) otomatis jadi context AI</li>
             <li>• Mendukung semua provider OpenAI-compatible</li>
           </ul>
         </div>
