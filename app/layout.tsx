@@ -12,6 +12,7 @@ const navItems = [
   { href: "/search", label: "Cari" },
   { href: "/matchup", label: "Debat" },
   { href: "/debates", label: "Arena" },
+  { href: "/tools/ibr-analyzer", label: "IBR" },
   { href: "/tools/respect-rt", label: "Alat" },
   { href: "/settings", label: "Pengaturan" }
 ];

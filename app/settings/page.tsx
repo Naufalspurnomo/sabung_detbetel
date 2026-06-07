@@ -10,6 +10,7 @@ interface AIConfigForm {
   model: string;
   maxTokens: string;
   temperature: string;
+  fbCookies: string;
 }
 
 const defaults: AIConfigForm = {
@@ -18,6 +19,7 @@ const defaults: AIConfigForm = {
   model: "llama-3.3-70b-versatile",
   maxTokens: "4096",
   temperature: "0.2",
+  fbCookies: "",
 };
 
 export default function SettingsPage() {
@@ -187,6 +189,33 @@ export default function SettingsPage() {
             </div>
           </div>
         </details>
+
+        {/* Facebook Cookie — untuk IBR Analyzer */}
+        <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4">
+          <h3 className="text-sm font-bold text-blue-300">
+            Facebook Cookie (untuk IBR Analyzer)
+          </h3>
+          <p className="mt-1 text-xs text-slate-400">
+            Diperlukan untuk akses postingan grup private IBR. Cookie disimpan
+            di browser kamu saja.
+          </p>
+          <label className="mt-3 mb-1.5 block text-sm font-semibold text-slate-300">
+            c_user dan xs
+          </label>
+          <input
+            type="password"
+            value={form.fbCookies}
+            onChange={(e) => handleChange("fbCookies", e.target.value)}
+            placeholder="c_user=123456789; xs=abcdef%3D..."
+            className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-600 focus:border-red-400/50 focus:outline-none focus:ring-1 focus:ring-red-400/30"
+          />
+          <p className="mt-1.5 text-xs text-slate-500">
+            Cara ambil: Buka Facebook → F12 → Application → Cookies →
+            facebook.com → copy nilai <code className="text-red-300">c_user</code> dan{" "}
+            <code className="text-red-300">xs</code>, format:{" "}
+            <code className="text-red-300">c_user=...; xs=...</code>
+          </p>
+        </div>
 
         {/* Actions */}
         <div className="flex gap-3 pt-2">
