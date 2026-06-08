@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
 // ──────────────────────────────────────────
 // Types
@@ -21,13 +22,27 @@ interface AnalysisResult {
 }
 
 // ──────────────────────────────────────────
-// Component
+// Main wrapper (Suspense boundary for useSearchParams)
 // ──────────────────────────────────────────
 
 export default function IbrAnalyzerPage() {
+  return (
+    <Suspense fallback={<div className="container-shell py-10 text-slate-500">Loading...</div>}>
+      <IbrAnalyzerInner />
+    </Suspense>
+  );
+}
+
+// ──────────────────────────────────────────
+// Inner component
+// ──────────────────────────────────────────
+
+function IbrAnalyzerInner() {
+  const searchParams = useSearchParams();
+
   const [postUrl, setPostUrl] = useState("");
   const [pastedHtml, setPastedHtml] = useState("");
-  const [inputMode, setInputMode] = useState<"url" | "paste">("url");
+  const [inputMode, setInputMode] = useState<"url" | "paste" | "bookmarklet">("url");
   const [loading, setLoading] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState("");
@@ -35,56 +50,80 @@ export default function IbrAnalyzerPage() {
   const [extractedPost, setExtractedPost] = useState<FbPost | null>(null);
   const [fetchMethod, setFetchMethod] = useState<"fetched" | "pasted" | null>(null);
 
-  // Step 1: Extract post content
+  // ── Auto-fill from bookmarklet query params ──
+  useEffect(() => {
+    const bkHtml = searchParams.get("html");
+    const bkUrl = searchParams.get("url");
+    if (bkHtml && bkUrl) {
+      setPostUrl(bkUrl);
+      setPastedHtml(bkHtml);
+      setInputMode("bookmarklet");
+      // Auto-extract
+      handleBookmarkletExtract(bkUrl, bkHtml);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  // ── Extract from bookmarklet data ──
+  const handleBookmarkletExtract = useCallback(async (url: string, html: string) => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/fb-post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, cookies: "", html }),
+      });
+      const data = await res.json();
+      if (!data.ok) {
+        setError(data.error || "Gagal memproses HTML");
+        return;
+      }
+      setExtractedPost(data.post);
+      setFetchMethod("pasted");
+    } catch (e) {
+      setError("Error: " + (e instanceof Error ? e.message : "Unknown"));
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  // ── Step 1: Extract post content ──
   async function handleExtract() {
     if (!postUrl.trim()) return;
 
-    // In paste mode, need HTML
     if (inputMode === "paste" && pastedHtml.length < 100) {
       setError("Paste HTML halaman Facebook minimal 100 karakter.");
       return;
     }
 
-    // In URL mode, need cookies
     if (inputMode === "url") {
       const fbCookies = getFbCookies();
       if (!fbCookies) {
-        setError(
-          "Facebook cookie belum diisi. Buka halaman Pengaturan untuk mengisi cookie Facebook kamu."
-        );
+        setError("Facebook cookie belum diisi. Buka Pengaturan untuk mengisi cookie.");
         return;
       }
     }
 
     setLoading(true);
     setError("");
-    setExtractedPost(null);
-    setResult(null);
 
     try {
-      const body: Record<string, string> = {
-        url: postUrl.trim(),
-      };
-
-      if (inputMode === "url") {
-        body.cookies = getFbCookies() || "";
-      } else {
-        body.html = pastedHtml;
-      }
+      const body: Record<string, string> = { url: postUrl };
+      if (inputMode === "paste") body.html = pastedHtml;
+      else body.cookies = getFbCookies() || "";
 
       const res = await fetch("/api/fb-post", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-
       const data = await res.json();
 
-      if (!res.ok || !data.ok) {
-        // If server fetch failed with fallback flag, suggest paste mode
-        if (data.fallback && inputMode === "url") {
+      if (!data.ok) {
+        if (data.fallback) {
           setError(
-            `${data.error}\n\n👉 Coba mode "Paste HTML" di bawah — buka postingan di browser HP/komputer, Ctrl+A → Ctrl+C, lalu paste di kolom yang tersedia.`
+            `${data.error}\n\n👉 Coba mode "Bookmarklet" — sekali setup, tinggal klik di postingan FB.`
           );
           return;
         }
@@ -93,25 +132,21 @@ export default function IbrAnalyzerPage() {
       }
 
       setExtractedPost(data.post);
-      setFetchMethod(data.method || "fetched");
-    } catch (err) {
-      setError(
-        `Network error: ${err instanceof Error ? err.message : "Unknown"}`
-      );
+      setFetchMethod(data.method);
+    } catch (e) {
+      setError("Network error: " + (e instanceof Error ? e.message : "Unknown"));
     } finally {
       setLoading(false);
     }
   }
 
-  // Step 2: AI Analysis
+  // ── Step 2: Analyze with AI ──
   async function handleAnalyze() {
     if (!extractedPost) return;
 
-    const config = getAiConfig();
-    if (!config) {
-      setError(
-        "API key belum diisi. Buka halaman Pengaturan untuk mengkonfigurasi AI."
-      );
+    const aiConfig = getAiConfig();
+    if (!aiConfig.apiKey) {
+      setError("API key belum diisi. Buka Pengaturan untuk mengisi API key.");
       return;
     }
 
@@ -119,34 +154,33 @@ export default function IbrAnalyzerPage() {
     setError("");
 
     try {
-      const res = await fetch("/api/fb-post/analyze", {
+      const res = await fetch("/api/ibr-analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           post: extractedPost,
-          config,
+          apiKey: aiConfig.apiKey,
+          baseUrl: aiConfig.baseUrl,
+          model: aiConfig.model,
         }),
       });
-
       const data = await res.json();
 
-      if (!res.ok || !data.ok) {
-        setError(data.error || "Gagal menganalisis postingan");
+      if (!data.ok) {
+        setError(data.error || "Gagal analisis");
         return;
       }
 
-      setResult({
-        post: extractedPost,
-        analysis: data.analysis,
-      });
-    } catch (err) {
-      setError(
-        `Network error: ${err instanceof Error ? err.message : "Unknown"}`
-      );
+      setResult({ post: extractedPost, analysis: data.analysis });
+    } catch (e) {
+      setError("Network error: " + (e instanceof Error ? e.message : "Unknown"));
     } finally {
       setAnalyzing(false);
     }
   }
+
+  // ── Bookmarklet JS code ──
+  const bookmarkletCode = `javascript:void(function(){var h=document.documentElement.outerHTML;var u=location.href;window.location.href='https://detbetel.netlify.app/tools/ibr-analyzer?url='+encodeURIComponent(u)+'&html='+encodeURIComponent(h)}())`;
 
   return (
     <main className="container-shell py-6 sm:py-10">
@@ -159,259 +193,329 @@ export default function IbrAnalyzerPage() {
           Analisis Postingan Grup
         </h1>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400 sm:mt-3 sm:text-base">
-          Paste link postingan dari grup Facebook IBR. AI akan membaca teks,
-          gambar, dan link dalam postingan, lalu memberikan analisis Death Battle
-          berbasis data VS Battles Wiki.
+          Ambil postingan dari grup Facebook IBR, lalu AI akan menganalisisnya
+          dengan data VS Battles Wiki.
         </p>
       </div>
 
-      {/* Mode Toggle */}
-      <div className="mb-4 flex gap-2">
-        <button
-          onClick={() => setInputMode("url")}
-          className={`rounded-lg px-4 py-2 text-sm font-bold transition ${
-            inputMode === "url"
-              ? "bg-red-500 text-white"
-              : "bg-white/5 text-slate-400 hover:bg-white/10"
-          }`}
-        >
-          🔗 Ambil via URL
-        </button>
-        <button
-          onClick={() => setInputMode("paste")}
-          className={`rounded-lg px-4 py-2 text-sm font-bold transition ${
-            inputMode === "paste"
-              ? "bg-red-500 text-white"
-              : "bg-white/5 text-slate-400 hover:bg-white/10"
-          }`}
-        >
-          📋 Paste HTML
-        </button>
+      {/* ─── Mode Toggle ─── */}
+      <div className="mb-5 flex flex-wrap gap-2">
+        {(
+          [
+            ["url", "🔗 URL", "Server ambil dari Facebook"],
+            ["bookmarklet", "🔖 Bookmarklet", "Sekali setup, tinggal klik"],
+            ["paste", "📋 Manual", "Copy-paste HTML sendiri"],
+          ] as const
+        ).map(([mode, label, desc]) => (
+          <button
+            key={mode}
+            onClick={() => {
+              setInputMode(mode);
+              setError("");
+            }}
+            className={`group relative rounded-lg px-4 py-2.5 text-sm font-bold transition ${
+              inputMode === mode
+                ? "bg-red-500 text-white shadow-lg shadow-red-500/20"
+                : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-slate-200"
+            }`}
+          >
+            {label}
+            <span className="pointer-events-none absolute -bottom-7 left-1/2 z-10 whitespace-nowrap rounded bg-slate-800 px-2 py-0.5 text-[10px] text-slate-400 opacity-0 shadow-lg transition group-hover:opacity-100 -translate-x-1/2">
+              {desc}
+            </span>
+          </button>
+        ))}
       </div>
 
-      {/* Input Form */}
-      <div className="max-w-2xl">
-        {/* URL Input (always shown) */}
-        <div className="flex flex-col gap-3 sm:flex-row">
+      {/* ─── URL Mode ─── */}
+      {inputMode === "url" && (
+        <div className="max-w-2xl">
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <input
+              type="url"
+              value={postUrl}
+              onChange={(e) => { setPostUrl(e.target.value); setError(""); }}
+              placeholder="https://www.facebook.com/groups/IBR/posts/..."
+              className="flex-1 rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-600 focus:border-red-400/50 focus:outline-none focus:ring-1 focus:ring-red-400/30"
+              onKeyDown={(e) => e.key === "Enter" && handleExtract()}
+            />
+            <button
+              onClick={handleExtract}
+              disabled={loading || !postUrl.trim()}
+              className="shrink-0 rounded-lg bg-red-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-red-400 active:scale-95 disabled:opacity-40"
+            >
+              {loading ? "Mengambil..." : "Ambil Postingan"}
+            </button>
+          </div>
+          <p className="mt-2 text-xs text-slate-500">
+            Cookie Facebook diperlukan untuk grup private. Isi di{" "}
+            <a href="/settings" className="text-red-400 hover:underline">Pengaturan</a>.
+            {" "}Jika gagal, coba mode <strong className="text-slate-400">Bookmarklet</strong>.
+          </p>
+        </div>
+      )}
+
+      {/* ─── Bookmarklet Mode ─── */}
+      {inputMode === "bookmarklet" && (
+        <div className="max-w-2xl space-y-4">
+          {/* Setup Card */}
+          <div className="rounded-xl border border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-orange-500/5 p-5">
+            <h3 className="text-base font-bold text-amber-300">
+              🔖 Bookmarklet — sekali setup, selamanya pakai
+            </h3>
+            <p className="mt-1.5 text-sm text-slate-400 leading-relaxed">
+              Bookmarklet adalah tombol kecil di bookmark bar yang langsung
+              kirim postingan FB ke app ini. Gak perlu copas, gak perlu cookie.
+            </p>
+
+            {/* Steps */}
+            <div className="mt-4 space-y-3">
+              {[
+                { n: "1", text: "Drag tombol di bawah ke bookmark bar browser lo", icon: "⬇️" },
+                { n: "2", text: "Buka postingan FB yang mau dianalisis", icon: "📱" },
+                { n: "3", text: 'Klik bookmark "Kirim ke DetBetel" di bookmark bar', icon: "🖱️" },
+                { n: "4", text: "Halaman ini terbuka otomatis dengan data terisi!", icon: "✨" },
+              ].map((step) => (
+                <div
+                  key={step.n}
+                  className="flex items-start gap-3 rounded-lg bg-white/5 px-3 py-2.5"
+                >
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-500/20 text-xs font-bold text-amber-300">
+                    {step.n}
+                  </span>
+                  <span className="text-sm text-slate-300">
+                    {step.icon} {step.text}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Drag button */}
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <a
+                href={bookmarkletCode}
+                onClick={(e) => e.preventDefault()}
+                onDragStart={(e) => {
+                  // Allow drag
+                  e.dataTransfer.setData("text/plain", bookmarkletCode);
+                }}
+                draggable="true"
+                className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-amber-500/25 transition hover:shadow-amber-500/40 cursor-grab active:cursor-grabbing select-none"
+              >
+                📌 Kirim ke DetBetel
+                <span className="text-xs font-normal text-white/70">
+                  ← drag ke bookmark bar ↑
+                </span>
+              </a>
+
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(bookmarkletCode);
+                  alert("Code copied! Buat bookmark baru, paste di kolom URL.");
+                }}
+                className="rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-xs text-slate-400 hover:bg-white/10 hover:text-slate-200 transition"
+              >
+                📋 Copy code
+              </button>
+            </div>
+
+            <p className="mt-3 text-[11px] text-slate-600">
+              💡 Bookmark bar gak muncul? Tekan <kbd className="rounded bg-white/10 px-1 py-0.5 text-slate-400">Ctrl+Shift+B</kbd> di Chrome/Edge
+            </p>
+          </div>
+
+          {/* Divider */}
+          <div className="flex items-center gap-3">
+            <div className="h-px flex-1 bg-white/10" />
+            <span className="text-xs text-slate-600">atau manual paste</span>
+            <div className="h-px flex-1 bg-white/10" />
+          </div>
+
+          {/* Manual paste fallback */}
+          <div>
+            <input
+              type="url"
+              value={postUrl}
+              onChange={(e) => { setPostUrl(e.target.value); setError(""); }}
+              placeholder="https://www.facebook.com/groups/IBR/posts/..."
+              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-600 focus:border-red-400/50 focus:outline-none focus:ring-1 focus:ring-red-400/30"
+            />
+            <textarea
+              value={pastedHtml}
+              onChange={(e) => { setPastedHtml(e.target.value); setError(""); }}
+              placeholder="Paste HTML postingan di sini (View Page Source → Ctrl+A → Ctrl+C → Ctrl+V)"
+              className="mt-2 h-32 w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:border-red-400/50 focus:outline-none focus:ring-1 focus:ring-red-400/30"
+            />
+            <button
+              onClick={handleExtract}
+              disabled={loading || !postUrl.trim()}
+              className="mt-2 rounded-lg bg-red-500 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-red-400 active:scale-95 disabled:opacity-40"
+            >
+              {loading ? "Memproses..." : "Proses"}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ─── Paste Mode ─── */}
+      {inputMode === "paste" && (
+        <div className="max-w-2xl space-y-3">
           <input
             type="url"
             value={postUrl}
-            onChange={(e) => {
-              setPostUrl(e.target.value);
-              setError("");
-            }}
+            onChange={(e) => { setPostUrl(e.target.value); setError(""); }}
             placeholder="https://www.facebook.com/groups/IBR/posts/..."
-            className="flex-1 rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-600 focus:border-red-400/50 focus:outline-none focus:ring-1 focus:ring-red-400/30"
-            onKeyDown={(e) => e.key === "Enter" && handleExtract()}
+            className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-600 focus:border-red-400/50 focus:outline-none focus:ring-1 focus:ring-red-400/30"
           />
-          <button
-            onClick={handleExtract}
-            disabled={loading || !postUrl.trim()}
-            className="shrink-0 rounded-lg bg-red-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-red-400 active:scale-95 disabled:opacity-40"
-          >
-            {loading ? "Mengambil..." : inputMode === "url" ? "Ambil Postingan" : "Proses HTML"}
-          </button>
-        </div>
-
-        {/* Paste HTML textarea (only in paste mode) */}
-        {inputMode === "paste" && (
-          <div className="mt-3">
-            <textarea
-              value={pastedHtml}
-              onChange={(e) => {
-                setPastedHtml(e.target.value);
-                setError("");
-              }}
-              placeholder={`Cara pakai:
-1. Buka postingan Facebook di browser HP/komputer
-2. Tekan Ctrl+A (select all) atau Select All di HP
-3. Tekan Ctrl+C (copy)
-4. Paste di sini (Ctrl+V)
-
-Atau kalau mau lebih akurat:
-1. Klik kanan → View Page Source
-2. Ctrl+A → Ctrl+C
-3. Paste di sini`}
-              className="h-40 w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:border-red-400/50 focus:outline-none focus:ring-1 focus:ring-red-400/30"
-            />
-            <p className="mt-1 text-xs text-slate-500">
-              {pastedHtml.length > 0
-                ? `${pastedHtml.length} karakter terpaste`
-                : "Paste isi halaman postingan Facebook di sini"}
-            </p>
+          <textarea
+            value={pastedHtml}
+            onChange={(e) => { setPastedHtml(e.target.value); setError(""); }}
+            placeholder={`Cara pakai:\n1. Buka postingan Facebook di browser\n2. Tekan Ctrl+U (view source)\n3. Ctrl+A → Ctrl+C\n4. Paste di sini`}
+            className="h-40 w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:border-red-400/50 focus:outline-none focus:ring-1 focus:ring-red-400/30"
+          />
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleExtract}
+              disabled={loading || !postUrl.trim()}
+              className="rounded-lg bg-red-500 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-red-400 active:scale-95 disabled:opacity-40"
+            >
+              {loading ? "Memproses..." : "Proses HTML"}
+            </button>
+            <span className="text-xs text-slate-500">
+              {pastedHtml.length > 0 ? `${pastedHtml.length} karakter` : ""}
+            </span>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Info for URL mode */}
-        {inputMode === "url" && (
-          <p className="mt-2 text-xs text-slate-500">
-            Cookie Facebook diperlukan untuk akses grup private. Isi di{" "}
-            <a href="/settings" className="text-red-400 hover:underline">
-              Pengaturan
-            </a>
-            . Jika gagal, coba mode <strong className="text-slate-400">Paste HTML</strong>.
-          </p>
-        )}
-      </div>
-
-      {/* Error */}
+      {/* ─── Error ─── */}
       {error && (
-        <div className="mt-4 max-w-2xl rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300 sm:mt-5 whitespace-pre-wrap">
+        <div className="mt-4 max-w-2xl rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300 whitespace-pre-wrap">
           {error}
         </div>
       )}
 
-      {/* Extracted Post Preview */}
+      {/* ─── Extracted Post Preview ─── */}
       {extractedPost && !result && (
-        <div className="mt-6 max-w-2xl space-y-4 sm:mt-8 sm:space-y-5">
+        <div className="mt-6 max-w-2xl space-y-4 sm:mt-8">
           <div className="rounded-lg border border-white/10 bg-white/[0.02] p-4 sm:p-5">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
-                <p className="text-sm font-bold text-white">
-                  {extractedPost.author}
-                </p>
-                <p className="text-xs text-slate-500">
-                  {extractedPost.timestamp}
-                  {fetchMethod === "pasted" && (
-                    <span className="ml-2 text-green-400">✓ via paste</span>
-                  )}
-                </p>
+                <p className="text-sm font-bold text-white">{extractedPost.author}</p>
+                <p className="text-xs text-slate-500">{extractedPost.timestamp}</p>
               </div>
-              <a
-                href={extractedPost.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-red-400 hover:underline"
-              >
-                Buka di FB →
-              </a>
+              {fetchMethod && (
+                <span
+                  className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                    fetchMethod === "fetched"
+                      ? "bg-emerald-500/15 text-emerald-400"
+                      : "bg-amber-500/15 text-amber-400"
+                  }`}
+                >
+                  {fetchMethod === "fetched" ? "✓ Server fetch" : "📋 Pasted HTML"}
+                </span>
+              )}
             </div>
 
-            {/* Text */}
-            {extractedPost.text && (
-              <div className="mt-4 rounded-md bg-black/30 p-3 sm:p-4">
-                <p className="whitespace-pre-wrap break-words text-sm text-slate-300">
-                  {extractedPost.text}
-                </p>
-              </div>
-            )}
-
-            {/* Images */}
-            {extractedPost.images.length > 0 && (
-              <div className="mt-4">
-                <p className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-500">
-                  Gambar ({extractedPost.images.length})
-                </p>
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                  {extractedPost.images.slice(0, 6).map((img, i) => (
-                    <div
-                      key={i}
-                      className="aspect-square overflow-hidden rounded-md border border-white/10 bg-black/30"
-                    >
-                      {img.includes("mbasic.facebook.com/photo.php") ? (
-                        <div className="flex h-full items-center justify-center p-2 text-center text-xs text-slate-500">
-                          Foto FB (klik untuk lihat)
-                        </div>
-                      ) : (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={img}
-                          alt={`Image ${i + 1}`}
-                          className="h-full w-full object-cover"
-                          crossOrigin="anonymous"
-                        />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Links */}
-            {extractedPost.links.length > 0 && (
-              <div className="mt-4">
-                <p className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-500">
-                  Link dalam postingan ({extractedPost.links.length})
-                </p>
-                <div className="space-y-1">
-                  {extractedPost.links.slice(0, 5).map((link, i) => (
-                    <a
-                      key={i}
-                      href={link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block truncate text-xs text-blue-400 hover:underline"
-                    >
-                      {link}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Summary */}
-            <div className="mt-4 rounded-md border border-blue-500/20 bg-blue-500/5 px-3 py-2">
-              <p className="text-xs text-slate-400">
-                Terdeteksi: <strong className="text-slate-300">{extractedPost.text.length}</strong> karakter teks,{" "}
-                <strong className="text-slate-300">{extractedPost.images.length}</strong> gambar,{" "}
-                <strong className="text-slate-300">{extractedPost.links.length}</strong> link
+            <div className="mt-3 max-h-48 overflow-y-auto rounded-lg bg-black/20 p-3">
+              <p className="whitespace-pre-wrap text-sm leading-relaxed text-slate-300">
+                {extractedPost.text || "(Tidak ada teks)"}
               </p>
             </div>
+
+            {extractedPost.images.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {extractedPost.images.slice(0, 4).map((img, i) => (
+                  <div
+                    key={i}
+                    className="h-16 w-16 overflow-hidden rounded-lg bg-white/5 sm:h-20 sm:w-20"
+                  >
+                    <img
+                      src={img}
+                      alt={`Image ${i + 1}`}
+                      className="h-full w-full object-cover"
+                      onError={(e) => (e.currentTarget.style.display = "none")}
+                    />
+                  </div>
+                ))}
+                {extractedPost.images.length > 4 && (
+                  <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-white/5 text-xs text-slate-500 sm:h-20 sm:w-20">
+                    +{extractedPost.images.length - 4}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {extractedPost.links.length > 0 && (
+              <div className="mt-3 space-y-1">
+                <p className="text-xs font-bold text-slate-500 uppercase">Link ditemukan:</p>
+                {extractedPost.links.slice(0, 3).map((link, i) => (
+                  <a
+                    key={i}
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block truncate text-xs text-red-400 hover:underline"
+                  >
+                    {link}
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Analyze Button */}
           <button
             onClick={handleAnalyze}
             disabled={analyzing}
-            className="w-full rounded-lg bg-red-500 py-3.5 text-sm font-black text-white transition hover:bg-red-400 active:scale-[0.98] disabled:opacity-40"
+            className="w-full rounded-lg bg-gradient-to-r from-red-500 to-orange-500 py-3.5 text-sm font-bold text-white transition hover:from-red-400 hover:to-orange-400 active:scale-[0.98] disabled:opacity-40 sm:w-auto sm:px-8"
           >
-            {analyzing
-              ? "AI sedang menganalisis..."
-              : "Analisis dengan AI (Death Battle)"}
+            {analyzing ? "AI sedang menganalisis..." : "⚔️ Analisis Death Battle"}
           </button>
         </div>
       )}
 
-      {/* AI Analysis Result */}
+      {/* ─── Analysis Result ─── */}
       {result && (
-        <div className="mt-6 max-w-3xl space-y-4 sm:mt-8 sm:space-y-5">
-          {/* Post Summary */}
-          <div className="rounded-lg border border-white/10 bg-white/[0.02] p-4 sm:p-5">
-            <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
-              Postingan dari {result.post.author}
-            </p>
-            <p className="mt-2 line-clamp-3 text-sm text-slate-400">
-              {result.post.text.substring(0, 300)}
-              {result.post.text.length > 300 && "..."}
-            </p>
-            <div className="mt-2 flex gap-3 text-xs text-slate-500">
-              <span>{result.post.images.length} gambar</span>
-              <span>{result.post.links.length} link</span>
-            </div>
-          </div>
-
-          {/* AI Analysis */}
-          <div className="rounded-lg border border-red-500/20 bg-red-500/5 p-4 sm:p-6">
-            <h2 className="text-base font-black text-white sm:text-lg">
-              Hasil Analisis AI
+        <div className="mt-6 max-w-3xl space-y-4 sm:mt-8">
+          <div className="rounded-lg border border-white/10 bg-white/[0.02] p-5 sm:p-6">
+            <h2 className="text-lg font-bold text-white">
+              Hasil Analisis — {result.post.author}
             </h2>
-            <div className="mt-4 prose prose-invert prose-sm max-w-none">
-              <AnalysisRenderer text={result.analysis} />
+            <div className="mt-1 text-xs text-slate-500">
+              Sumber:{" "}
+              <a
+                href={result.post.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-red-400 hover:underline"
+              >
+                Postingan Facebook
+              </a>
+            </div>
+
+            <div className="prose-invert prose-sm mt-4 max-w-none text-slate-300">
+              {result.analysis.split("\n").map((line, i) => {
+                if (line.startsWith("# ")) return <h2 key={i} className="mt-6 mb-2 text-lg font-bold text-white">{line.slice(2)}</h2>;
+                if (line.startsWith("## ")) return <h3 key={i} className="mt-5 mb-1.5 text-base font-bold text-white">{line.slice(3)}</h3>;
+                if (line.startsWith("### ")) return <h4 key={i} className="mt-4 mb-1 text-sm font-bold text-white">{line.slice(4)}</h4>;
+                if (line.startsWith("**") && line.endsWith("**")) return <p key={i} className="mt-3 font-bold text-white">{line.replace(/\*\*/g, "")}</p>;
+                if (line.startsWith("- ")) return <li key={i} className="ml-4 text-sm">{line.slice(2)}</li>;
+                if (line.trim() === "") return <br key={i} />;
+                return <p key={i} className="text-sm leading-relaxed">{line}</p>;
+              })}
             </div>
           </div>
 
-          {/* Reset */}
           <button
             onClick={() => {
               setResult(null);
               setExtractedPost(null);
               setPostUrl("");
               setPastedHtml("");
-              setFetchMethod(null);
             }}
-            className="rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-white/10 active:scale-95"
+            className="rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 text-sm text-slate-400 hover:bg-white/10 hover:text-white transition"
           >
-            Analisis Postingan Lain
+            ← Analisis postingan lain
           </button>
         </div>
       )}
@@ -420,144 +524,25 @@ Atau kalau mau lebih akurat:
 }
 
 // ──────────────────────────────────────────
-// Analysis Renderer (markdown-like)
-// ──────────────────────────────────────────
-
-function AnalysisRenderer({ text }: { text: string }) {
-  const lines = text.split("\n");
-  const elements: React.ReactNode[] = [];
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-
-    if (line.startsWith("### ")) {
-      elements.push(
-        <h3 key={i} className="mt-4 mb-2 text-base font-bold text-red-300">
-          {line.replace("### ", "")}
-        </h3>
-      );
-    } else if (line.startsWith("## ")) {
-      elements.push(
-        <h2 key={i} className="mt-5 mb-2 text-lg font-black text-white">
-          {line.replace("## ", "")}
-        </h2>
-      );
-    } else if (line.startsWith("# ")) {
-      elements.push(
-        <h1 key={i} className="mt-6 mb-3 text-xl font-black text-white">
-          {line.replace("# ", "")}
-        </h1>
-      );
-    } else if (line.startsWith("- ")) {
-      elements.push(
-        <li key={i} className="ml-4 text-sm text-slate-300">
-          {renderInline(line.replace("- ", ""))}
-        </li>
-      );
-    } else if (line.match(/^\d+\.\s/)) {
-      elements.push(
-        <li key={i} className="ml-4 list-decimal text-sm text-slate-300">
-          {renderInline(line.replace(/^\d+\.\s/, ""))}
-        </li>
-      );
-    } else if (line.startsWith("> ")) {
-      elements.push(
-        <blockquote
-          key={i}
-          className="border-l-2 border-red-400/40 pl-4 italic text-slate-400"
-        >
-          {renderInline(line.replace("> ", ""))}
-        </blockquote>
-      );
-    } else if (line.trim() === "") {
-      elements.push(<br key={i} />);
-    } else {
-      elements.push(
-        <p key={i} className="text-sm text-slate-300">
-          {renderInline(line)}
-        </p>
-      );
-    }
-  }
-
-  return <>{elements}</>;
-}
-
-function renderInline(text: string): React.ReactNode {
-  // Bold
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
-  return parts.map((part, i) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      return (
-        <strong key={i} className="font-bold text-white">
-          {part.slice(2, -2)}
-        </strong>
-      );
-    }
-    // Inline code
-    const codeParts = part.split(/(`[^`]+`)/g);
-    return codeParts.map((cp, j) => {
-      if (cp.startsWith("`") && cp.endsWith("`")) {
-        return (
-          <code
-            key={`${i}-${j}`}
-            className="rounded bg-white/10 px-1.5 py-0.5 text-xs text-red-300"
-          >
-            {cp.slice(1, -1)}
-          </code>
-        );
-      }
-      return <span key={`${i}-${j}`}>{cp}</span>;
-    });
-  });
-}
-
-// ──────────────────────────────────────────
-// Helpers — read from localStorage
+// Helpers (read from localStorage)
 // ──────────────────────────────────────────
 
 function getFbCookies(): string | null {
-  try {
-    const stored = localStorage.getItem("vsbattle-ai-config");
-    if (!stored) return null;
-    const config = JSON.parse(stored);
-
-    // New format: separate c_user and xs fields
-    if (config.fb_c_user && config.fb_xs) {
-      return `c_user=${config.fb_c_user}; xs=${config.fb_xs}`;
-    }
-
-    // Legacy format: single fbCookies string
-    if (config.fbCookies) {
-      return config.fbCookies;
-    }
-
-    return null;
-  } catch {
-    return null;
-  }
+  if (typeof window === "undefined") return null;
+  const c_user = localStorage.getItem("fb_c_user");
+  const xs = localStorage.getItem("fb_xs");
+  if (c_user && xs) return `c_user=${c_user}; xs=${xs}`;
+  const legacy = localStorage.getItem("fbCookies");
+  if (legacy) return legacy;
+  return null;
 }
 
-function getAiConfig(): {
-  apiUrl: string;
-  apiKey: string;
-  model: string;
-  maxTokens: number;
-  temperature: number;
-} | null {
-  try {
-    const stored = localStorage.getItem("vsbattle-ai-config");
-    if (!stored) return null;
-    const config = JSON.parse(stored);
-    if (!config.apiKey) return null;
-    return {
-      apiUrl: config.apiUrl || "https://api.groq.com/openai/v1/chat/completions",
-      apiKey: config.apiKey,
-      model: config.model || "llama-3.3-70b-versatile",
-      maxTokens: parseInt(config.maxTokens) || 4096,
-      temperature: parseFloat(config.temperature) || 0.2,
-    };
-  } catch {
-    return null;
-  }
+function getAiConfig(): { apiKey: string; baseUrl: string; model: string } {
+  if (typeof window === "undefined")
+    return { apiKey: "", baseUrl: "", model: "" };
+  return {
+    apiKey: localStorage.getItem("vsb_apiKey") || "",
+    baseUrl: localStorage.getItem("vsb_baseUrl") || "",
+    model: localStorage.getItem("vsb_model") || "",
+  };
 }
