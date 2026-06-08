@@ -26,22 +26,34 @@ interface AnalysisResult {
 
 export default function IbrAnalyzerPage() {
   const [postUrl, setPostUrl] = useState("");
+  const [pastedHtml, setPastedHtml] = useState("");
+  const [inputMode, setInputMode] = useState<"url" | "paste">("url");
   const [loading, setLoading] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [extractedPost, setExtractedPost] = useState<FbPost | null>(null);
+  const [fetchMethod, setFetchMethod] = useState<"fetched" | "pasted" | null>(null);
 
   // Step 1: Extract post content
   async function handleExtract() {
     if (!postUrl.trim()) return;
 
-    const fbCookies = getFbCookies();
-    if (!fbCookies) {
-      setError(
-        "Facebook cookie belum diisi. Buka halaman Pengaturan untuk mengisi cookie Facebook kamu."
-      );
+    // In paste mode, need HTML
+    if (inputMode === "paste" && pastedHtml.length < 100) {
+      setError("Paste HTML halaman Facebook minimal 100 karakter.");
       return;
+    }
+
+    // In URL mode, need cookies
+    if (inputMode === "url") {
+      const fbCookies = getFbCookies();
+      if (!fbCookies) {
+        setError(
+          "Facebook cookie belum diisi. Buka halaman Pengaturan untuk mengisi cookie Facebook kamu."
+        );
+        return;
+      }
     }
 
     setLoading(true);
@@ -50,23 +62,38 @@ export default function IbrAnalyzerPage() {
     setResult(null);
 
     try {
+      const body: Record<string, string> = {
+        url: postUrl.trim(),
+      };
+
+      if (inputMode === "url") {
+        body.cookies = getFbCookies() || "";
+      } else {
+        body.html = pastedHtml;
+      }
+
       const res = await fetch("/api/fb-post", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          url: postUrl.trim(),
-          cookies: fbCookies,
-        }),
+        body: JSON.stringify(body),
       });
 
       const data = await res.json();
 
       if (!res.ok || !data.ok) {
+        // If server fetch failed with fallback flag, suggest paste mode
+        if (data.fallback && inputMode === "url") {
+          setError(
+            `${data.error}\n\n👉 Coba mode "Paste HTML" di bawah — buka postingan di browser HP/komputer, Ctrl+A → Ctrl+C, lalu paste di kolom yang tersedia.`
+          );
+          return;
+        }
         setError(data.error || "Gagal mengambil postingan");
         return;
       }
 
       setExtractedPost(data.post);
+      setFetchMethod(data.method || "fetched");
     } catch (err) {
       setError(
         `Network error: ${err instanceof Error ? err.message : "Unknown"}`
@@ -138,8 +165,33 @@ export default function IbrAnalyzerPage() {
         </p>
       </div>
 
+      {/* Mode Toggle */}
+      <div className="mb-4 flex gap-2">
+        <button
+          onClick={() => setInputMode("url")}
+          className={`rounded-lg px-4 py-2 text-sm font-bold transition ${
+            inputMode === "url"
+              ? "bg-red-500 text-white"
+              : "bg-white/5 text-slate-400 hover:bg-white/10"
+          }`}
+        >
+          🔗 Ambil via URL
+        </button>
+        <button
+          onClick={() => setInputMode("paste")}
+          className={`rounded-lg px-4 py-2 text-sm font-bold transition ${
+            inputMode === "paste"
+              ? "bg-red-500 text-white"
+              : "bg-white/5 text-slate-400 hover:bg-white/10"
+          }`}
+        >
+          📋 Paste HTML
+        </button>
+      </div>
+
       {/* Input Form */}
       <div className="max-w-2xl">
+        {/* URL Input (always shown) */}
         <div className="flex flex-col gap-3 sm:flex-row">
           <input
             type="url"
@@ -157,22 +209,54 @@ export default function IbrAnalyzerPage() {
             disabled={loading || !postUrl.trim()}
             className="shrink-0 rounded-lg bg-red-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-red-400 active:scale-95 disabled:opacity-40"
           >
-            {loading ? "Mengambil..." : "Ambil Postingan"}
+            {loading ? "Mengambil..." : inputMode === "url" ? "Ambil Postingan" : "Proses HTML"}
           </button>
         </div>
 
-        <p className="mt-2 text-xs text-slate-500">
-          Cookie Facebook diperlukan untuk akses grup private. Isi di{" "}
-          <a href="/settings" className="text-red-400 hover:underline">
-            Pengaturan
-          </a>
-          .
-        </p>
+        {/* Paste HTML textarea (only in paste mode) */}
+        {inputMode === "paste" && (
+          <div className="mt-3">
+            <textarea
+              value={pastedHtml}
+              onChange={(e) => {
+                setPastedHtml(e.target.value);
+                setError("");
+              }}
+              placeholder={`Cara pakai:
+1. Buka postingan Facebook di browser HP/komputer
+2. Tekan Ctrl+A (select all) atau Select All di HP
+3. Tekan Ctrl+C (copy)
+4. Paste di sini (Ctrl+V)
+
+Atau kalau mau lebih akurat:
+1. Klik kanan → View Page Source
+2. Ctrl+A → Ctrl+C
+3. Paste di sini`}
+              className="h-40 w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:border-red-400/50 focus:outline-none focus:ring-1 focus:ring-red-400/30"
+            />
+            <p className="mt-1 text-xs text-slate-500">
+              {pastedHtml.length > 0
+                ? `${pastedHtml.length} karakter terpaste`
+                : "Paste isi halaman postingan Facebook di sini"}
+            </p>
+          </div>
+        )}
+
+        {/* Info for URL mode */}
+        {inputMode === "url" && (
+          <p className="mt-2 text-xs text-slate-500">
+            Cookie Facebook diperlukan untuk akses grup private. Isi di{" "}
+            <a href="/settings" className="text-red-400 hover:underline">
+              Pengaturan
+            </a>
+            . Jika gagal, coba mode <strong className="text-slate-400">Paste HTML</strong>.
+          </p>
+        )}
       </div>
 
       {/* Error */}
       {error && (
-        <div className="mt-4 max-w-2xl rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300 sm:mt-5">
+        <div className="mt-4 max-w-2xl rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300 sm:mt-5 whitespace-pre-wrap">
           {error}
         </div>
       )}
@@ -188,6 +272,9 @@ export default function IbrAnalyzerPage() {
                 </p>
                 <p className="text-xs text-slate-500">
                   {extractedPost.timestamp}
+                  {fetchMethod === "pasted" && (
+                    <span className="ml-2 text-green-400">✓ via paste</span>
+                  )}
                 </p>
               </div>
               <a
@@ -221,7 +308,7 @@ export default function IbrAnalyzerPage() {
                       key={i}
                       className="aspect-square overflow-hidden rounded-md border border-white/10 bg-black/30"
                     >
-                      {img.startsWith("https://mbasic.facebook.com") ? (
+                      {img.includes("mbasic.facebook.com/photo.php") ? (
                         <div className="flex h-full items-center justify-center p-2 text-center text-xs text-slate-500">
                           Foto FB (klik untuk lihat)
                         </div>
@@ -319,6 +406,8 @@ export default function IbrAnalyzerPage() {
               setResult(null);
               setExtractedPost(null);
               setPostUrl("");
+              setPastedHtml("");
+              setFetchMethod(null);
             }}
             className="rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-white/10 active:scale-95"
           >
