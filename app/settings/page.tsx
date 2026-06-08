@@ -10,7 +10,8 @@ interface AIConfigForm {
   model: string;
   maxTokens: string;
   temperature: string;
-  fbCookies: string;
+  fb_c_user: string;
+  fb_xs: string;
 }
 
 const defaults: AIConfigForm = {
@@ -19,7 +20,8 @@ const defaults: AIConfigForm = {
   model: "llama-3.3-70b-versatile",
   maxTokens: "4096",
   temperature: "0.2",
-  fbCookies: "",
+  fb_c_user: "",
+  fb_xs: "",
 };
 
 export default function SettingsPage() {
@@ -36,6 +38,15 @@ export default function SettingsPage() {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
+        // Backward compat: parse old fbCookies format "c_user=...; xs=..."
+        if (!parsed.fb_c_user && parsed.fbCookies) {
+          const match = parsed.fbCookies.match(/c_user=(\d+);\s*xs=([^\s;]+)/);
+          if (match) {
+            parsed.fb_c_user = match[1];
+            parsed.fb_xs = match[2];
+          }
+          delete parsed.fbCookies;
+        }
         setForm({ ...defaults, ...parsed });
       }
     } catch {
@@ -193,28 +204,59 @@ export default function SettingsPage() {
         {/* Facebook Cookie — untuk IBR Analyzer */}
         <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4">
           <h3 className="text-sm font-bold text-blue-300">
-            Facebook Cookie (untuk IBR Analyzer)
+            🔑 Facebook Cookie (untuk IBR Analyzer)
           </h3>
           <p className="mt-1 text-xs text-slate-400">
             Diperlukan untuk akses postingan grup private IBR. Cookie disimpan
             di browser kamu saja.
           </p>
-          <label className="mt-3 mb-1.5 block text-sm font-semibold text-slate-300">
-            c_user dan xs
-          </label>
-          <input
-            type="password"
-            value={form.fbCookies}
-            onChange={(e) => handleChange("fbCookies", e.target.value)}
-            placeholder="c_user=123456789; xs=abcdef%3D..."
-            className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-600 focus:border-red-400/50 focus:outline-none focus:ring-1 focus:ring-red-400/30"
-          />
-          <p className="mt-1.5 text-xs text-slate-500">
+
+          {/* c_user */}
+          <div className="mt-3">
+            <label className="mb-1.5 block text-sm font-semibold text-slate-300">
+              c_user
+            </label>
+            <input
+              type="text"
+              value={form.fb_c_user}
+              onChange={(e) => handleChange("fb_c_user", e.target.value)}
+              placeholder="100062168283472"
+              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-600 focus:border-red-400/50 focus:outline-none focus:ring-1 focus:ring-red-400/30"
+            />
+            <p className="mt-1 text-xs text-slate-500">
+              Angka ID Facebook kamu
+            </p>
+          </div>
+
+          {/* xs */}
+          <div className="mt-3">
+            <label className="mb-1.5 block text-sm font-semibold text-slate-300">
+              xs
+            </label>
+            <input
+              type="password"
+              value={form.fb_xs}
+              onChange={(e) => handleChange("fb_xs", e.target.value)}
+              placeholder="34%3AUx1hUXxLy_ubfQ%3A2%3A1780925289..."
+              className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-600 focus:border-red-400/50 focus:outline-none focus:ring-1 focus:ring-red-400/30"
+            />
+            <p className="mt-1 text-xs text-slate-500">
+              Session token Facebook
+            </p>
+          </div>
+
+          <p className="mt-3 text-xs text-slate-500">
             Cara ambil: Buka Facebook → F12 → Application → Cookies →
             facebook.com → copy nilai <code className="text-red-300">c_user</code> dan{" "}
-            <code className="text-red-300">xs</code>, format:{" "}
-            <code className="text-red-300 break-all">c_user=...; xs=...</code>
+            <code className="text-red-300">xs</code>
           </p>
+
+          {/* Status indicator */}
+          {form.fb_c_user && form.fb_xs && (
+            <p className="mt-2 text-xs text-green-400">
+              ✓ Cookie terisi — siap digunakan di IBR Analyzer
+            </p>
+          )}
         </div>
 
         {/* Actions — stack on mobile */}

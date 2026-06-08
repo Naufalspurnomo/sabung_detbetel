@@ -432,7 +432,18 @@ function getFbCookies(): string | null {
     const stored = localStorage.getItem("vsbattle-ai-config");
     if (!stored) return null;
     const config = JSON.parse(stored);
-    return config.fbCookies || null;
+
+    // New format: separate c_user and xs fields
+    if (config.fb_c_user && config.fb_xs) {
+      return `c_user=${config.fb_c_user}; xs=${config.fb_xs}`;
+    }
+
+    // Legacy format: single fbCookies string
+    if (config.fbCookies) {
+      return config.fbCookies;
+    }
+
+    return null;
   } catch {
     return null;
   }
